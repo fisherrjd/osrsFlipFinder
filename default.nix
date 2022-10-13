@@ -11,7 +11,7 @@
 let
   inherit (jacobi.hax) ifIsLinux ifIsDarwin;
 
-  name = "osrsTradingBot";
+  name = "osrsFlipFinder";
   tools = with jacobi; {
     cli = [
       jq
