@@ -27,6 +27,12 @@ let
         types-requests
       ]))
     ];
+
+    react = [
+      nodePackages.create-react-app
+      nodejs
+      yarn
+    ];
   };
 
   env = jacobi.enviro {
