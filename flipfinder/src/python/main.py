@@ -1,6 +1,4 @@
 import requests
-from typing import Union
-from items import ID
 from item import item
 from fastapi import FastAPI
 
@@ -12,15 +10,9 @@ HEADERS = {
 app = FastAPI()
 
 
-@app.get("/")
-def index():
-    return "congrats its a webapp"
-
-
 @app.get("/item/{item_id}")
 def get_item_data(item_id: int) -> object:
     """run a get request with our default headers"""
-    headers = HEADERS
     url = f"{URL}{item_id}"
     # print("fetching URL", url)
     response = requests.get(url, headers=HEADERS)
@@ -33,11 +25,4 @@ def get_item_data(item_id: int) -> object:
         price_data["low"],
         price_data["lowTime"],
     )
-    return {
-        "item_id": temp.get_id(),
-        "item_high_price": temp.get_high_price(),
-        "item_high_time": temp.get_high_time(),
-        "item_low_price": temp.get_low_price(),
-        "item_low_time": temp.get_low_time(),
-        "item_margin": temp.get_margin(),
-    }
+    return {"item": temp}

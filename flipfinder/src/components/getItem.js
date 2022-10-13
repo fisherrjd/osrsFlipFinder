@@ -5,7 +5,7 @@ function GetItem() {
 
   useEffect(() => {
     console.log("here");
-    fetch("http://localhost:8000/item/4151")
+    fetch(`http://${window.location.host}/api/item/4151`)
     .then(response => response.json())
     .then(
       data => {
