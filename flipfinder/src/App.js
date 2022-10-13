@@ -1,12 +1,12 @@
 import './App.css';
-import './components/getItem.js'
+import GetItem from './components/getItem.js'
 
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <getItem></getItem>
+        <GetItem></GetItem>
       </header>
     </div>
   );
