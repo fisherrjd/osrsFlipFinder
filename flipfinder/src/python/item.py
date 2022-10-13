@@ -38,3 +38,6 @@ class item:
 
     def get_low_time(self) -> str:
         return self.lowTime
+
+    def get_margin(self) -> str:
+        return self.margin

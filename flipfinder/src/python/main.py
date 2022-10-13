@@ -39,4 +39,5 @@ def get_item_data(item_id: int) -> object:
         "item_high_time": temp.get_high_time(),
         "item_low_price": temp.get_low_price(),
         "item_low_time": temp.get_low_time(),
+        "item_margin": temp.get_margin(),
     }
