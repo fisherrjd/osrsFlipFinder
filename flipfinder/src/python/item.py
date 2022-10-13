@@ -1,43 +1,35 @@
-from datetime import datetime
-import time
+from osrsreboxed import items_api
+from utils.time import humanize_time
+from utils.text import format_price
+
+ITEMS = items_api.load()
 
 
-class item:
+class Item:
     def __init__(
-        self, id: int, highPrice: int, highTime: int, lowPrice: int, lowTime: int
+        self, id: int, high_price: int, highTime: int, low_price: int, lowTime: int
     ) -> None:
 
-        # TODO
-        # self.name = name
         self.id = id
-        self.highPrice = "{:,}".format(highPrice)
-        self.highTime = datetime.utcfromtimestamp(time.time() - highTime).strftime(
-            "%M minutes and %S seconds ago"
-        )
-        self.lowPrice = "{:,}".format(lowPrice)
-        self.lowTime = datetime.utcfromtimestamp(time.time() - lowTime).strftime(
-            "%M minutes and %S seconds ago"
-        )
-        self.margin = "{:,}".format(int(highPrice - lowPrice - highPrice * 0.01))
+        self._item = ITEMS.lookup_by_item_id(self.id)
+        self.high_price = format_price(high_price)
+        self.highTime = humanize_time(highTime)
+        self.low_price = format_price(low_price)
+        self.lowTime = humanize_time(lowTime)
+        self.margin = format_price(int(high_price - low_price - high_price * 0.01))
 
-    # TODO
-    # def get_name(self) -> str:
-    #     return self.name
+    @property
+    def name(self) -> str:
+        return self._item.name
 
-    def get_id(self) -> int:
-        return self.id
-
-    def get_high_price(self) -> str:
-        return self.highPrice
-
-    def get_high_time(self) -> str:
-        return self.highTime
-
-    def get_low_price(self) -> str:
-        return self.lowPrice
-
-    def get_low_time(self) -> str:
-        return self.lowTime
-
-    def get_margin(self) -> str:
-        return self.margin
+    @property
+    def item_obj(self) -> dict:
+        return {
+            "Name": self.name,
+            "id": self.id,
+            "High Price": self.high_price,
+            "Low Price": self.low_price,
+            "Margin": self.margin,
+            "High Time": self.highTime,
+            "Low Time": self.lowTime,
+        }

@@ -1,9 +1,9 @@
 { jacobi ? import
     (
       fetchTarball {
-        name = "jpetrucciani-2022-10-12";
-        url = "https://github.com/jpetrucciani/nix/archive/d1c781aada62bdbd91fcad427759167ef1c9b59b.tar.gz";
-        sha256 = "0j3sy7qpxyaqmqqb0iywlw0ism5qwy2bf73l125rlv9vxxrbjdag";
+        name = "jpetrucciani-2022-10-13";
+        url = "https://github.com/jpetrucciani/nix/archive/0b5f2fa50b8a90499f406033a2581029d8e9221e.tar.gz";
+        sha256 = "027kd57k3xzh62f393k81kv1a9wnx0s2bcnw13jnxdzdw9d8pig8";
       }
     )
     { }
@@ -18,6 +18,7 @@ let
         fastapi
         uvicorn
         types-requests
+        osrsreboxed
       ]);
       run-caddy = pog {
         name = "run-caddy";
@@ -36,7 +37,7 @@ let
         name = "run-backend";
         script = ''
           cd ./flipfinder/src/python/ || exit
-          ${python}/bin/uvicorn main:app --reload
+          ${python}/bin/uvicorn main:APP --reload
         '';
       };
       run = pog {

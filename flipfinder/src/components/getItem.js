@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 function GetItem() {
-  const [data, setData] = useState(null);  
+  const [data, setData] = useState([]);  
 
   useEffect(() => {
     console.log("here");
@@ -16,7 +16,11 @@ function GetItem() {
 
 
     return(
-      <div>test</div>
+      <div>
+        <ul>
+       {data.map(item => <li key={data.id}>{data.high}</li>)}
+     </ul>
+      </div>
     );
 }
 
