@@ -1,25 +1,29 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 function GetItem() {
-  const [data, setData] = useState([]);  
+
+  const [info, setInfo] = useState([]);  
 
   useEffect(() => {
-    console.log("here");
-    fetch(`http://${window.location.host}/api/item/4151`)
-    .then(response => response.json())
-    .then(
-      data => {
-        setData(data);
-      }
-    );
-  }, [] );
+    item()
+  }, [] )
 
+
+  const item = async () => {
+    fetch(`http://${window.location.host}/api/item/4151`).then((response) => response.json())
+    .then((data) => setInfo(data));
+  }
+ 
+
+  {info.map(item => (
+          console.log(item)
+        ))}
 
     return(
       <div>
-        <ul>
-       {data.map(item => <li key={data.id}>{data.high}</li>)}
-     </ul>
+        {
+        <li></li>
+        }
       </div>
     );
 }
