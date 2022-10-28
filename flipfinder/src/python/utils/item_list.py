@@ -11,8 +11,8 @@ HEADERS = {
 
 
 class Item_list:
-    def __init__(self, id: int) -> None:
+    def __init__(self) -> None:
 
         response = requests.get(URL, headers=HEADERS)
         data = response.json()
-        self.price_data = data["data"][f"{id}"]
+        self.price_data = data["data"]

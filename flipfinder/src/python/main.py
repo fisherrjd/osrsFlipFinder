@@ -1,8 +1,12 @@
 from item import Item
 from fastapi import FastAPI
-from item_list import Item_list
+from utils.item_list import Item_list
+import sqlite3
 
 
+# create a database file
+CONNECTION = sqlite3.connect("Item_Data.sqlite")
+CONNECTION.close()
 APP = FastAPI()
 
 
@@ -12,6 +16,14 @@ def get_item_data(item_id: int) -> object:
 
     temp = Item(item_id)
     return {"item1": [temp.item_obj]}
+
+
+# TODO
+# cache data locally- local database -sqllite?
+# chron timer input to a database
+# disk lookups
+#
+#
 
 
 @APP.get("/item/1m")
