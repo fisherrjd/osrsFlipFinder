@@ -64,6 +64,7 @@ let
         nodePackages.create-react-app
         nodejs
         yarn
+        axios
       ];
       scripts = [
         run-backend

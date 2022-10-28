@@ -41,9 +41,9 @@ class Item:
         return {
             "Name": self.name,
             "id": self.id,
-            "High Price": self.high_price,
-            "Low Price": self.low_price,
+            "High_Price": self.high_price,
+            "Low_Price": self.low_price,
             "Margin": self.margin,
-            "High Time": self.highTime,
-            "Low Time": self.lowTime,
+            "High_Time": self.highTime,
+            "Low_Time": self.lowTime,
         }
