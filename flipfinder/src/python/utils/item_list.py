@@ -1,4 +1,3 @@
-from contextlib import nullcontext
 import requests
 from osrsreboxed import items_api
 
@@ -16,12 +15,4 @@ class Item_list:
 
         response = requests.get(URL, headers=HEADERS)
         data = response.json()
-        self.price_data = data["data"]
-
-    @property
-    def item_obj(self) -> dict:
-        return self.price_data
-
-    def filter_by_margin(self, int: base_margin) -> dict:
-
-        return null
+        self.pog = data["data"]

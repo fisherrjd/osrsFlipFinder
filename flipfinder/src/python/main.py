@@ -26,10 +26,9 @@ def get_item_data(item_id: int) -> object:
 #
 
 
-@APP.get("/item/1m")
+@APP.get("/margin")
 def get_margin_over_1m() -> dict:
     """run request to get all item margins over 1m"""
 
     temp = Item_list()
-
-    return temp.item_obj
+    return {"test": temp.pog}
