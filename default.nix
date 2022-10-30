@@ -78,6 +78,9 @@ let
             "${nodePackages.prettier}/bin/prettier --config ${./.prettierrc.js} --write ." \
             "${python310Packages.black}/bin/black ."
         '')
+        (writeShellScriptBin "prospector" ''
+          ${prospector}/bin/prospector $@
+        '')
       ];
     };
 
