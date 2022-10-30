@@ -1,11 +1,9 @@
 { jacobi ? import
-    (
-      fetchTarball {
-        name = "jpetrucciani-2022-10-13";
-        url = "https://github.com/jpetrucciani/nix/archive/0b5f2fa50b8a90499f406033a2581029d8e9221e.tar.gz";
-        sha256 = "027kd57k3xzh62f393k81kv1a9wnx0s2bcnw13jnxdzdw9d8pig8";
-      }
-    )
+    (fetchTarball {
+      name = "jpetrucciani-2022-10-30";
+      url = "https://nix.cobi.dev/x/4ce097d2d2d81bcae41fefe950df97471aacdab3";
+      sha256 = "1whplss9y5xbwyi9ac2dyn4iwvxdjm0abv5g5l26h6j3pyb59s73";
+    })
     { }
 }:
 let
@@ -60,17 +58,26 @@ let
       python = [
         python
       ];
-      react = [
-        nodePackages.create-react-app
+      node = [
+        (with nodePackages; [
+          create-react-app
+          prettier
+        ])
         nodejs
         yarn
-        axios
       ];
       scripts = [
         run-backend
         run-caddy
         run-frontend
         run
+        (writeShellScriptBin "fmt" ''
+          ${concurrently}/bin/concurrently \
+            --names "prettier,black" \
+            --prefix-colors "cyan,blue" \
+            "${nodePackages.prettier}/bin/prettier --config ${./.prettierrc.js} --write ." \
+            "${python310Packages.black}/bin/black ."
+        '')
       ];
     };
 
