@@ -1,6 +1,5 @@
 import './App.css';
-import GetItem from './components/getItem.js'
-
+import GetItem from './components/getItem.js';
 
 function App() {
   return (

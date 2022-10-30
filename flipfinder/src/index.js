@@ -9,7 +9,7 @@ root.render(
   //TODO why it renders twice
   <React.StrictMode>
     <App />
-  </React.StrictMode>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function

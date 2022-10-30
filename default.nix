@@ -71,7 +71,7 @@ let
         run-caddy
         run-frontend
         run
-        (writeShellScriptBin "fmt" ''
+        (writeShellScriptBin "format" ''
           ${concurrently}/bin/concurrently \
             --names "prettier,black" \
             --prefix-colors "cyan,blue" \
