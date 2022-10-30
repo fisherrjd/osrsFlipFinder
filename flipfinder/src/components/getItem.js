@@ -19,7 +19,7 @@ class GetItem extends Component {
   render() {
     return (
       <div>
-        <table>
+        <table class="rwd-table">
           <tbody>
             <tr>
               <th>Name</th>
