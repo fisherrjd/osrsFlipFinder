@@ -18,18 +18,17 @@ def get_item_data(item_id: int) -> object:
     return {"item1": [temp.item_obj]}
 
 
+@APP.get("/margin")
+def get_margin_over_1m() -> dict:
+    """run request to get all item margins over 1m"""
+
+    temp = Item_list()
+    return {"test": temp.pog}
+
+
 # TODO
 # cache data locally- local database -sqllite?
 # chron timer input to a database
 # disk lookups
 #
 #
-
-
-@APP.get("/item/1m")
-def get_margin_over_1m() -> list:
-    """run request to get all item margins over 1m"""
-
-    temp = Item_list()
-
-    return temp.price_data

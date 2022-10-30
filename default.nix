@@ -12,6 +12,7 @@ let
     let
       python = python310.withPackages (p: with p; [
         requests
+        pandas
         mypy
         fastapi
         uvicorn

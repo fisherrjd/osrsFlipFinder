@@ -15,4 +15,4 @@ class Item_list:
 
         response = requests.get(URL, headers=HEADERS)
         data = response.json()
-        self.price_data = data["data"]
+        self.pog = data["data"]

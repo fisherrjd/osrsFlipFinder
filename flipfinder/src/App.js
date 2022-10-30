@@ -4,9 +4,9 @@ import GetItem from './components/getItem.js';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      <div>
         <GetItem></GetItem>
-      </header>
+      </div>
     </div>
   );
 }
