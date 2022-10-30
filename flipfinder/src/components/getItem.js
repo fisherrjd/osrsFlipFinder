@@ -2,16 +2,20 @@ import React, {Component} from 'react';
 import axios from 'axios';
 
 class GetItem extends Component {
-  state = {
-    items_details: [],
-  };
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.state = {
+      item_details: [],
+    };
+  }
+
+  componentDidMount() {
     axios.get(`http://${window.location.host}/api/item/4151`).then((response) => {
-      this.setState({items_details: response.data});
-      console.log(items_details);
+      this.setState({item_details: response.data.item1});
+      console.log(response.data);
     });
   }
+
   render() {
     return (
       <div>
@@ -26,7 +30,7 @@ class GetItem extends Component {
               <th>High Time</th>
               <th>Low Time</th>
             </tr>
-            {this.state.items_details.map((item) => (
+            {this.state.item_details.map((item) => (
               <tr key="item.id">
                 <td>{item.Name}</td>
                 <td>{item.id}</td>
