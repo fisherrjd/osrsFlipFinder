@@ -1,5 +1,6 @@
 import requests
 from osrsreboxed import items_api
+from build_item import BuildItem
 
 
 ITEMS = items_api.load()
@@ -16,3 +17,25 @@ class Item_list:
         response = requests.get(URL, headers=HEADERS)
         data = response.json()
         self.pog = data["data"]
+
+        self.id_list = []
+        for i in self.pog:
+            if len(data["data"][i]) != 0:
+                price_data = data["data"][i]
+
+                if (
+                    (price_data["high"]) is not None
+                    and price_data["low"] is not None
+                    and price_data["highTime"] is not None
+                    and price_data["lowTime"] is not None
+                    and int(i) < 27205
+                ):
+                    self.id_list.append(
+                        BuildItem(
+                            int(i),
+                            price_data["high"],
+                            price_data["low"],
+                            price_data["highTime"],
+                            price_data["lowTime"],
+                        )
+                    )
