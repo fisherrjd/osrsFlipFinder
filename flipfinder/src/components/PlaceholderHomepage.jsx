@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {Link, NavLink} from 'react-router-dom';
-import ItemIDHook from './ItemIDHook';
+import {Link} from 'react-router-dom';
 class PlaceholderHome extends Component {
   render() {
     const placeholderItems = [
