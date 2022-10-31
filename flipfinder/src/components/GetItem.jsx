@@ -10,16 +10,16 @@ class GetItem extends Component {
   }
 
   componentDidMount() {
-    axios.get(`http://${window.location.host}/api/item/4151`).then((response) => {
-      this.setState({item_details: response.data.item1});
-      console.log(response.data);
+    axios.get(`http://${window.location.host}/api/item/` + this.props.id.id).then((response) => {
+      this.setState({item_details: response.data.item});
     });
   }
 
   render() {
+    const {item_details} = this.state;
     return (
       <div>
-        <table class="rwd-table">
+        <table className="rwd-table">
           <tbody>
             <tr>
               <th>Name</th>
@@ -30,7 +30,7 @@ class GetItem extends Component {
               <th>High Time</th>
               <th>Low Time</th>
             </tr>
-            {this.state.item_details.map((item) => (
+            {item_details.map((item) => (
               <tr key="item.id">
                 <td>{item.Name}</td>
                 <td>{item.id}</td>
