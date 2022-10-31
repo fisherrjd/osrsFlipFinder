@@ -15,6 +15,7 @@ class BuildItem:
     def __init__(
         self, id: int, high: int, low: int, highTime: int, lowTime: int
     ) -> None:
+        """build item off of id without call to specific item id api"""
 
         self.id = id
         self.wikiInfo = ITEMS.lookup_by_item_id(self.id)
