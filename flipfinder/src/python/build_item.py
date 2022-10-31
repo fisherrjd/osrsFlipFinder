@@ -26,8 +26,6 @@ class BuildItem:
         self.lowTime = humanize_time(lowTime)
         self.margin = format_price(calc_margin(high, low))
 
-        print("finish item")
-
     def __repr__(self) -> str:
         return f"<Item[{self.id}]:{self.name}>"
 
