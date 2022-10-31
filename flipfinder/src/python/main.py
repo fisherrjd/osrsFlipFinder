@@ -1,12 +1,10 @@
 from item import Item
 from fastapi import FastAPI
 from utils.item_list import Item_list
-import sqlite3
 
 
 # create a database file
-CONNECTION = sqlite3.connect("Item_Data.sqlite")
-CONNECTION.close()
+
 APP = FastAPI()
 
 
@@ -23,7 +21,7 @@ def get_margin_over_1m() -> dict:
     """run request to get all item margins over 1m"""
 
     temp = Item_list()
-    return {"test": temp.pog}
+    return {"test": temp.id_list}
 
 
 # TODO
