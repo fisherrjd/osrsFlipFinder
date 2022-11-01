@@ -14,6 +14,7 @@ HEADERS = {
 
 class Item:
     def __init__(self, id: int) -> None:
+        """build item off of individual api call"""
 
         url = f"{URL}{id}"
         # print("fetching URL", url)

@@ -15,6 +15,7 @@ class BuildItem:
     def __init__(
         self, id: int, high: int, low: int, highTime: int, lowTime: int
     ) -> None:
+        """build item off of id without call to specific item id api"""
 
         self.id = id
         self.wikiInfo = ITEMS.lookup_by_item_id(self.id)
@@ -24,8 +25,6 @@ class BuildItem:
         self.low_price = format_price(low)
         self.lowTime = humanize_time(lowTime)
         self.margin = format_price(calc_margin(high, low))
-
-        print("finish item")
 
     def __repr__(self) -> str:
         return f"<Item[{self.id}]:{self.name}>"
