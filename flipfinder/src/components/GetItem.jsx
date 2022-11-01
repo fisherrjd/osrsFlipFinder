@@ -31,7 +31,7 @@ class GetItem extends Component {
               <th>Low Time</th>
             </tr>
             {item_details.map((item) => (
-              <tr key="item.id">
+              <tr key={item.id}>
                 <td>{item.Name}</td>
                 <td>{item.id}</td>
                 <td>{item.High_Price}</td>

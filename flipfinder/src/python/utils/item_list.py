@@ -30,12 +30,11 @@ class Item_list:
                     and price_data["lowTime"] is not None
                     and int(i) < 27205
                 ):
-                    self.id_list.append(
-                        BuildItem(
-                            int(i),
-                            price_data["high"],
-                            price_data["low"],
-                            price_data["highTime"],
-                            price_data["lowTime"],
-                        )
+                    temp = BuildItem(
+                        int(i),
+                        price_data["high"],
+                        price_data["low"],
+                        price_data["highTime"],
+                        price_data["lowTime"],
                     )
+                self.id_list.append(temp.item_obj)

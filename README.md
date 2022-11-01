@@ -31,4 +31,4 @@ run-caddy
 ## TODO: More to add
 
 Images for items
-table of 50 items at a time
+Sqlite 3 DB??? --> to lighten load on osrs api
