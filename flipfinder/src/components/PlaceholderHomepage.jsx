@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
 class PlaceholderHome extends Component {
   constructor(props) {
     super(props);
@@ -15,22 +19,19 @@ class PlaceholderHome extends Component {
   render() {
     const {items} = this.state;
     return (
-      <table className="rwd-table">
-        <tbody>
-          <tr>
-            <th>Name</th>
-            <th>Margin</th>
-          </tr>
-          {items.map((item) => (
-            <tr key={item.id}>
-              <td>
-                <Link to={`/itemdetails/${item.id}`}>{item.name}</Link>
-              </td>
-              <td>{item.margin}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div>
+        {items.map((item) => (
+          <Accordion key={item.id}>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <p>{item.name}</p>
+            </AccordionSummary>
+          </Accordion>
+        ))}
+      </div>
     );
   }
 }
