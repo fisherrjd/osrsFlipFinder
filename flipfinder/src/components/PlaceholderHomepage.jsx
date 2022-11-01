@@ -1,5 +1,6 @@
-import React, {Component, useState, useEffect} from 'react';
+import React, {Component} from 'react';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 class PlaceholderHome extends Component {
   constructor(props) {
     super(props);
@@ -14,40 +15,24 @@ class PlaceholderHome extends Component {
   render() {
     const {items} = this.state;
     return (
-      <div>
-        <table className="rwd-table">
-          <tbody>
-            <tr>
-              <th>
-                <button>Name</button>
-              </th>
-              <th>ID</th>
-              <th>High Price</th>
-              <th>Low price</th>
-              <th>Margin</th>
-              <th>High Time</th>
-              <th>Low Time</th>
+      <table className="rwd-table">
+        <tbody>
+          <tr>
+            <th>Name</th>
+            <th>Margin</th>
+          </tr>
+          {items.map((item) => (
+            <tr key={item.id}>
+              <td>
+                <Link to={`/itemdetails/${item.id}`}>{item.name}</Link>
+              </td>
+              <td>{item.margin}</td>
             </tr>
-            {items.map((item) => (
-              <tr key={item.id}>
-                <td>{item.name}</td>
-                <td>{item.id}</td>
-                <td>{item.high_price}</td>
-                <td>{item.low_price}</td>
-                <td>{item.margin}</td>
-                <td>{item.highTime}</td>
-                <td>{item.lowTime}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+          ))}
+        </tbody>
+      </table>
     );
   }
 }
 
 export default PlaceholderHome;
-
-// {
-//   /* <Link to={`/itemdetails/${item.id}`}></Link> */
-// }

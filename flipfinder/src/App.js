@@ -1,4 +1,3 @@
-import './App.css';
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
 import PlaceholderHome from './components/PlaceholderHomepage';
