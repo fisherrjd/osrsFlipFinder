@@ -24,6 +24,17 @@ def get_margin_over_1m() -> dict:
     return {"items": temp.id_list}
 
 
+@APP.get("/margin/{index}")
+def get_x_items(index: int) -> dict:
+    """run request to get all item margins over 1m"""
+
+    temp = Item_list()
+    result = []
+    for x in range(index - 50, index):
+        result.append(temp.id_list[x])
+    return {"items": result}
+
+
 # TODO
 # cache data locally- local database -sqllite?
 # chron timer input to a database

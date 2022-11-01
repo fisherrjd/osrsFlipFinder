@@ -28,4 +28,7 @@ run-frontend
 run-caddy
 ```
 
-## TODO: Add more documentation
+## TODO: More to add
+
+Images for items
+table of 50 items at a time
