@@ -19,7 +19,7 @@ class GetItem extends Component {
     const {item_details} = this.state;
     return (
       <div>
-        <table className="rwd-table">
+        <table>
           <tbody>
             <tr>
               <th>Name</th>
