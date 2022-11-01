@@ -28,4 +28,7 @@ run-frontend
 run-caddy
 ```
 
-## TODO: Add more documentation
+## TODO: More to add
+
+Images for items
+Sqlite 3 DB??? --> to lighten load on osrs api
