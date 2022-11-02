@@ -30,7 +30,7 @@ def get_x_items(index: int) -> dict:
 
     temp = Item_list()
     result = []
-    for x in range(index - 50, index):
+    for x in range(index, index + 25):
         result.append(temp.id_list[x])
     return {"items": result}
 

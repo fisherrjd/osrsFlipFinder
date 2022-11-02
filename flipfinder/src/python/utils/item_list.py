@@ -37,4 +37,5 @@ class Item_list:
                         price_data["highTime"],
                         price_data["lowTime"],
                     )
-                self.id_list.append(temp.item_obj)
+                    # if int(temp.margin.replace(",", "")) > 1000000:
+                    self.id_list.append(temp.item_obj)
