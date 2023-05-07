@@ -10,7 +10,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/itemdetails/:id" element={<ItemIDHook />} />
+        <Route path="/item/:id" element={<ItemIDHook />} />
         <Route path="*" element={<h1>404 Not Found</h1>} />
       </Routes>
     </div>
