@@ -18,6 +18,7 @@ def get_item_data(item_id: int) -> object:
 
 @APP.get("/margin")
 def get_margin_over_1m() -> dict:
+    print("I hit this")
     """run request to get all item margins over 1m"""
 
     temp = Item_list()

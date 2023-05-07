@@ -13,7 +13,6 @@ HEADERS = {
 
 class Item_list:
     def __init__(self) -> None:
-
         response = requests.get(URL, headers=HEADERS)
         data = response.json()
         self.pog = data["data"]
@@ -37,5 +36,5 @@ class Item_list:
                         price_data["highTime"],
                         price_data["lowTime"],
                     )
-                    # if int(temp.margin.replace(",", "")) > 1000000:
+
                     self.id_list.append(temp.item_obj)

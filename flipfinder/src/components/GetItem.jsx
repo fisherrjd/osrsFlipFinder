@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
+import './Item.css'
 
 class GetItem extends Component {
   constructor(props) {
@@ -19,6 +21,8 @@ class GetItem extends Component {
     const {item_details} = this.state;
     return (
       <div>
+          <Link to={`/`}>Home</Link>
+
         <table>
           <tbody>
             <tr>

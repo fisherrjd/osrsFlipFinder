@@ -16,7 +16,9 @@ class PlaceholderHome extends Component {
   render() {
     const {items} = this.state;
     return (
+      
       <table>
+        
         <tbody>
           <tr>
             <th>Name</th>

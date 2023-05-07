@@ -1,8 +1,8 @@
 { jacobi ? import
     (fetchTarball {
-      name = "jpetrucciani-2022-10-30";
-      url = "https://nix.cobi.dev/x/4ce097d2d2d81bcae41fefe950df97471aacdab3";
-      sha256 = "1whplss9y5xbwyi9ac2dyn4iwvxdjm0abv5g5l26h6j3pyb59s73";
+      name = "jpetrucciani-2023-05-06";
+      url = "https://nix.cobi.dev/x/835e1f9c781be24823d4717e201a75db40f1ed2a";
+      sha256 = "1zdnvac1r77im43jrkv6jpdzir17dxd82lbwal8jjiz7cvvvis0p";
     })
     { }
 }:
