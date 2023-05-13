@@ -10,7 +10,7 @@ let
   name = "osrsFlipFinder";
   tools = with jacobi;
     let
-      python = python310.withPackages (p: with p; [
+      python = python311.withPackages (p: with p; [
         requests
         pandas
         mypy
@@ -18,6 +18,7 @@ let
         uvicorn
         types-requests
         osrsreboxed
+        seaborn
       ]);
       run-caddy = pog {
         name = "run-caddy";
