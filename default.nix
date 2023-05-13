@@ -19,6 +19,7 @@ let
         types-requests
         osrsreboxed
         seaborn
+        matplotlib
       ]);
       run-caddy = pog {
         name = "run-caddy";
