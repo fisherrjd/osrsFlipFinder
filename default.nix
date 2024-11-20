@@ -19,7 +19,15 @@ let
       ruff
       (python311.withPackages (p: with p; [
         black
+        requests
+        pandas
+        mypy
+        fastapi
+        uvicorn
+        types-requests
+        osrsreboxed
       ]))
+
     ];
     scripts = pkgs.lib.attrsets.attrValues scripts;
   };
