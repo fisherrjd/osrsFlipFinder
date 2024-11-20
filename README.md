@@ -6,29 +6,20 @@
 
 this is a web app that does <insert good stuff here>
 
+## Building
+
+#### TODO
+
+- Define How to build
+
 ## Running
 
-### the good way
+#### TODO
 
-```bash
-# run everything we need!
-run
-```
-
-### the individual way
-
-```bash
-# run fastapi server
-run-backend
-
-# run react webpack server in development mode
-run-frontend
-
-# run caddy reverse proxy
-run-caddy
-```
+- Define How to run ()
 
 ## TODO: More to add
 
-Images for items
-Sqlite 3 DB??? --> to lighten load on osrs api
+- Images for items
+- Sqlite 3 DB??? --> to lighten load on osrs api
+- Discord bot (cli tool)
