@@ -2,7 +2,7 @@
 # **OSRS Flip Finder**
 
 [![Python Style: Black](https://img.shields.io/badge/python%20style-black-000000.svg?style=flat-square)](https://github.com/ambv/black)  
-[![Python 3.10+ Supported](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/release/python-3100/)  
+[![Python 3.11+ Supported](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/release/python-3100/)  
 [![Uses Nix](https://img.shields.io/badge/uses-nix-%237EBAE4)](https://nixos.org/)
 
 ---
