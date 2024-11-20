@@ -26,6 +26,8 @@ let
         uvicorn
         types-requests
         osrsreboxed
+        discord
+        python-dotenv
       ]))
 
     ];
