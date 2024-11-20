@@ -22,7 +22,7 @@
    | Rune Platebody   | 45,000         | 43,000        | 2,000      | 1h              | 1.2h          | 3,000      |
 
 3. **Connect to Discord**  
-   - **TODO:** Define required options (talk to Finky).  
+   - **TODO:** Define required options (talk to OSRS boys).  
 4. **Expand Features**  
    - Incorporate decanting, crafting, and additional tools.
 
