@@ -18,7 +18,8 @@ class BuildItem:
         """build item off of id without call to specific item id api"""
 
         self.id = id
-        self.wikiInfo = ITEMS.lookup_by_item_id(self.id)
+        # Fix this based off DB I think we are JUICIN
+        # self.wikiInfo = ITEMS.lookup_by_item_id(self.id)
         self.name = self.wikiInfo.name
         self.high_price = format_price(high)
         self.highTime = humanize_time(highTime)

@@ -1,6 +1,9 @@
 import requests
 import sqlite3
 import time
+from utils.tax import calc_margin
+from utils.time import humanize_time
+from utils.text import format_price
 
 # Define the API URLs
 LATEST_API_URL = "https://prices.runescape.wiki/api/v1/osrs/latest"
@@ -26,7 +29,8 @@ def initialize_database(conn):
         ('high', 'INTEGER DEFAULT 0'),
         ('highTime', 'INTEGER DEFAULT 0'),
         ('low', 'INTEGER DEFAULT 0'),
-        ('lowTime', 'INTEGER DEFAULT 0')
+        ('lowTime', 'INTEGER DEFAULT 0'),
+        ('margin', 'INTEGER DEFAULT 0')
     ]
     
     for column, dtype in columns:
@@ -70,24 +74,28 @@ def save_to_db(prices_data, name_mapping, db_file):
         # Safely extract values with defaults
         name = name_mapping.get(item_id, 'Unknown')
         high = prices.get('high', 0) or 0
-        high_time = prices.get('highTime', 0) or 0
+        high_time = humanize_time(prices.get('highTime', 0) or 0)
         low = prices.get('low', 0) or 0
-        low_time = prices.get('lowTime', 0) or 0
+        low_time = humanize_time(prices.get('lowTime', 0) or 0)
+        
+        # Calculate margin using imported function
+        margin = calc_margin(high, low)
         
         # Insert or update the item data
         cursor.execute(
             """
-            INSERT INTO item_prices (item_id, item_name, high, highTime, low, lowTime)
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT INTO item_prices (item_id, item_name, high, highTime, low, lowTime, margin)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
             ON CONFLICT(item_id)
             DO UPDATE SET
                 item_name = excluded.item_name,
                 high = excluded.high,
                 highTime = excluded.highTime,
                 low = excluded.low,
-                lowTime = excluded.lowTime
+                lowTime = excluded.lowTime,
+                margin = excluded.margin
             """,
-            (item_id, name, high, high_time, low, low_time),
+            (item_id, name, high, high_time, low, low_time, margin),
         )
     
     conn.commit()

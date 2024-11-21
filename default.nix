@@ -14,7 +14,6 @@ let
     cli = [
       coreutils
       nixpkgs-fmt
-      sqlite3
     ];
     python = [
       (python312.withPackages (p: with p; [

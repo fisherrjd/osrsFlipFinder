@@ -4,7 +4,7 @@ from item import Item
 # Simulating a function that fetches the margin for an item
 def get_item_margin(item_id: str) -> str:
 
-    temp = Item(item_id)
+    #build items 
     return {"item": [temp.item_obj]}
 
 def get_response(user_input: str) -> str:
