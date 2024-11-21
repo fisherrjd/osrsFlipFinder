@@ -13,6 +13,16 @@ Anti-Venom
 
 
 Example: 
+
+Flopper
+APP
+ — Yesterday at 3:35 PM
+Top decanting profit
+Top profit to be made by decanting potions.
+Legend
+-: Cheapest dose
++: Most expensive dose
+$: Price difference per dose
 ╔═════════════════════╤═══╤═══╤══════╗
 ║ Name                │ - │ + │ $    ║
 ╟─────────────────────┼───┼───┼──────╢
@@ -27,8 +37,19 @@ Example:
 ║ Super restore       │ 3 │ 4 │ 42   ║
 ║ Super energy        │ 3 │ 4 │ 39   ║
 ╚═════════════════════╧═══╧═══╧══════╝
+Page: 1/3 | Min vol.: 10K | Sort: Custom
+decant details
+Decanting prices for Super defence
+*Only doses with volume >= 2K are considered.
 
-Super Defence
+--------------------------------------------------------------------------------------------------------
+
+Best profit: 3 to 1 (188 profit per dose)
+Profit to full: 3 to 4 (126 profit per dose)
+Legend
+- = low price per dose
++ = High price per dose
+Prices
 ╔═══╤═════╤═══════╤═══════╤═══════╤═════════╗
 ║   │   - │     + │   Buy │  Sell │ Vol.    ║
 ╟───┼─────┼───────┼───────┼───────┼─────────╢
@@ -37,3 +58,7 @@ Super Defence
 ║ 2 │ 804 │   815 │ 1.61K │ 1.63K │ 1.88K   ║
 ║ 1 │ 804 │ 1.06K │   804 │ 1.06K │ 3.46K   ║
 ╚═══╧═════╧═══════╧═══════╧═══════╧═════════╝
+Min vol.: 2K
+Image
+
+Made with ❤ by Osrs.cloud

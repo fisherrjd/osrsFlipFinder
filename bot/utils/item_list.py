@@ -7,7 +7,7 @@ ITEMS = items_api.load()
 URL = "https://prices.runescape.wiki/api/v1/osrs/latest"
 HEADERS = {
     "User-Agent": "@PapaBear#2007",
-    "From": "fisherrjd@gmail.com",  # This is another valid field
+    "From": "fisherrjd@gmail.com"
 }
 
 

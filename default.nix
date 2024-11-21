@@ -14,6 +14,7 @@ let
     cli = [
       coreutils
       nixpkgs-fmt
+      sqlite3
     ];
     python = [
       (python312.withPackages (p: with p; [
@@ -28,6 +29,7 @@ let
         osrsreboxed
         discordpy
         python-dotenv
+        sqlite3
       ]))
     ];
     scripts = pkgs.lib.attrsets.attrValues scripts;
