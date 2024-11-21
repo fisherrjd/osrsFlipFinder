@@ -28,7 +28,7 @@ let
         osrsreboxed
         discordpy
         python-dotenv
-        sqlite3
+        sqlite
       ]))
     ];
     scripts = pkgs.lib.attrsets.attrValues scripts;

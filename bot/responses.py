@@ -1,28 +1,23 @@
 from random import choice, randint
-from item import Item
+from data_collection.info import lookup_item
 
 # Simulating a function that fetches the margin for an item
-def get_item_margin(item_id: str) -> str:
-
-    #build items 
-    return {"item": [temp.item_obj]}
+def get_info(item_name: str) -> str:
+    return lookup_item(item_name)
 
 def get_response(user_input: str) -> str:
     lowered: str = user_input.lower()
 
-    if lowered == '':
-        return 'Well, you\'re awfully silent...'
-    elif '!info' in lowered:
-        # Extract ITEM_ID from input after '!info'
+    if '!info' in lowered:
+        # Extract item_name from input after '!info'
         try:
-            item_id = user_input.split('!info ')[1].strip()
-            if item_id.isdigit():
-                # Call the get_item_margin function and pass the ITEM_ID
-                margin_info = get_item_margin(item_id)
+            item_name = user_input.split('!info ')[1].strip()
+            if item_name:
+                # Call the get_info function and pass the item_name
+                margin_info = get_info(item_name)
                 return margin_info
             else:
-                return 'Invalid ITEM_ID format. Please provide a valid number.'
+                return 'Please provide a valid item_name after !info.'
         except IndexError:
-            return 'Please provide an ITEM_ID after !info.'
-    else:
-        return 'I didn\'t quite catch that. Could you rephrase?'
+            return 'Please provide an item_name after !info.'
+
