@@ -16,9 +16,9 @@ let
       nixpkgs-fmt
     ];
     python = [
-      ruff
-      (python311.withPackages (p: with p; [
+      (python312.withPackages (p: with p; [
         black
+        ruff
         requests
         pandas
         mypy
@@ -26,10 +26,9 @@ let
         uvicorn
         types-requests
         osrsreboxed
-        discord
+        discordpy
         python-dotenv
       ]))
-
     ];
     scripts = pkgs.lib.attrsets.attrValues scripts;
   };
@@ -42,5 +41,5 @@ let
 in
 (env.overrideAttrs (_: {
   inherit name;
-  NIXUP = "0.0.7";
+  NIXUP = "0.0.8";
 })) // { inherit scripts; }
