@@ -29,6 +29,8 @@ let
         discordpy
         python-dotenv
         sqlite
+        texttable
+        tabulate
       ]))
     ];
     scripts = pkgs.lib.attrsets.attrValues scripts;

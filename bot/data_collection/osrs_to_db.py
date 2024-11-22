@@ -3,12 +3,14 @@ import sqlite3
 import time
 from utils.tax import calc_margin
 from utils.time import humanize_time
-from utils.text import format_price
 
 # Define the API URLs
 LATEST_API_URL = "https://prices.runescape.wiki/api/v1/osrs/latest"
 MAPPING_API_URL = "https://prices.runescape.wiki/api/v1/osrs/mapping"
-
+HEADERS = {
+    "User-Agent": "@PapaBear#2007",
+    "From": "fisherrjd@gmail.com",  # This is another valid field
+}
 # SQLite database file
 DB_FILE = "osrs_prices.db"
 
@@ -44,7 +46,7 @@ def initialize_database(conn):
 
 def fetch_data(api_url):
     """Fetch data from the given API."""
-    response = requests.get(api_url)
+    response = requests.get(api_url, headers=HEADERS)
     if response.status_code == 200:
         return response.json()
     else:
