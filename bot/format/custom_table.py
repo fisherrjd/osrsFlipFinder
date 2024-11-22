@@ -1,11 +1,12 @@
-from tabulate import tabulate, TableFormat, Line
+from tabulate import tabulate, TableFormat, Line, DataRow
 
 thick_line = TableFormat(
     lineabove=Line("╔", "═", "╤", "╗"),
     linebelowheader=Line("╟", "─", "┼", "╢"),
     linebetweenrows=None,
     linebelow=Line("╚", "═", "╧", "╝"),
-    headerrow="║ {header} ║",
-    datarow="║ {data} ║",
-    padding=1,  # Adds padding to each cell
+    headerrow=DataRow("║", "│", "║"),
+    datarow=DataRow("║", "│", "║"),
+    padding=1,
+    with_header_hide=None
 )

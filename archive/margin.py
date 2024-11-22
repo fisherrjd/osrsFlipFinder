@@ -1,48 +1,31 @@
-import discord
 import sqlite3
+from data_collection.utils.format import format_price
 
-async def get_margin(min_margin: int) -> discord.Embed:
-    """Fetch items with a margin greater than the specified value and format as a rich embed."""
-
-    # Connect to SQLite database
+def get_margin(margin: int) -> dict:
+    """Fetch item info from the database based on the item name."""
     conn = sqlite3.connect("data_collection/osrs_prices.db")
     cursor = conn.cursor()
-
-    # Query items with margin greater than X
     cursor.execute(
-        "SELECT item_id, item_name, high, low, highTime, lowTime, margin FROM item_prices WHERE margin > ?",
-        (min_margin,),
+        "SELECT item_id, item_name, high, low, highTime, lowTime, margin FROM item_prices WHERE item_name LIKE ?",
+        ('%' + margin + '%',)
     )
     items = cursor.fetchall()
     conn.close()
 
-    # Check if any items match the criteria
     if not items:
-        return discord.Embed(
-            title="❌ No items found",
-            description=f"No items found with a margin greater than `{min_margin}` GP.",
-            color=discord.Color.red(),
-        )
+        return {"error": f"❌ **No items found** with `{margin}` in the name. Please check your spelling or try a different search."}
 
-    # Create the embed object
-    embed = discord.Embed(
-        title=f"Items with Margin Greater than {min_margin} GP",
-        description="Below are the items that meet your criteria.",
-        color=discord.Color.green(),
-    )
-
-    # Build the table in the embed with fields for each row
-    for item_id, name, high, low, highTime, lowTime, margin in items:
-        embed.add_field(
-            name=name[:50],  # truncate name if it's too long
-            value=(
-                f"**High:** {high} GP\n"
-                f"**Low:** {low} GP\n"
-                f"**Margin:** {margin} GP\n"
-                f"**High Time:** {highTime}\n"
-                f"**Low Time:** {lowTime}"
-            ),
-            inline=False
-        )
-
-    return embed
+    return {
+        "items": [
+            {
+                "item_id": item_id,
+                "item_name": name,
+                "high": format_price(high),
+                "low": format_price(low),
+                "highTime": highTime,
+                "lowTime": lowTime,
+                "margin": format_price(margin)
+            }
+            for item_id, name, high, low, highTime, lowTime, margin in items[:1]
+        ]
+    }
