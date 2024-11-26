@@ -1,43 +1,58 @@
+# OSRS Flip Finder
 
-# **OSRS Flip Finder**
-
-[![Python Style: Black](https://img.shields.io/badge/python%20style-black-000000.svg?style=flat-square)](https://github.com/ambv/black)  
-[![Python 3.11+ Supported](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/release/python-3100/)  
+[![Python Style: Black](https://img.shields.io/badge/python%20style-black-000000.svg?style=flat-square)](https://github.com/ambv/black)
+[![Python 3.11+ Supported](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/release/python-3100/)
 [![Uses Nix](https://img.shields.io/badge/uses-nix-%237EBAE4)](https://nixos.org/)
 
----
+## Project Goals
 
-## **Goals**
+### 1. Connect to the Prices API
 
-1. **Connect to the Prices API**  
-   - Fetch up-to-date OSRS item data.
-2. **Store Data in SQLite**  
-   - Update the database with the latest prices every minute.  
+- Fetch up-to-date OSRS item data in real-time
 
-   ### Sample Table:
-   | **Item**         | **High Price** | **Low Price** | **Margin** | **Last Bought** | **Last Sold** | **Volume** |
-   |-------------------|----------------|---------------|------------|-----------------|---------------|------------|
-   | Abyssal Whip     | 1,030,000      | 1,000,000     | 30,000     | 4m              | 5m            | 500        |
-   | Dragon Boots     | 200,000        | 195,000       | 5,000      | 2m              | 2.1m          | 1,200      |
-   | Rune Platebody   | 45,000         | 43,000        | 2,000      | 1h              | 1.2h          | 3,000      |
+### 2. Store Data in SQLite
 
-3. **Connect to Discord**  
-   - **TODO:** Define required options (talk to OSRS boys).  
-4. **Expand Features**  
-   - Incorporate decanting, crafting, and additional tools.
+- Continuously update the database with the latest prices every minute
 
----
+#### Sample Data Table
 
-## **Building**
+```
+╔═══════════════════════╤════════════╤═════════════╤══════════╤══════════╗
+║ Name                  │ InstaBuy   │ InstaSell   │ Margin   │ Volume   ║
+╟───────────────────────┼────────────┼─────────────┼──────────┼──────────╢
+║ Wine of zamorak       │ 800        │ 798         │ 2        │ 1.09M    ║
+║ Maple longbow         │ 277        │ 275         │ 2        │ 2.01M    ║
+║ Harralander potions   │ 785        │ 783         │ 2        │ 767.99K  ║
+║ Mithril seeds         │ 945        │ 943         │ 2        │ 395.44K  ║
+║ Grimy tarromin        │ 419        │ 417         │ 2        │ 671.34K  ║
+╚═══════════════════════╧════════════╧═════════════╧══════════╧══════════╝
+```
 
-#### **TODO:**  
-- Define steps for building the project.
+### 3. Connect to Discord
 
----
+- **TODO:** Define required options (consult OSRS community)
 
-## **Running**
+### 4. Expand Features
 
-#### **TODO:**  
-- Define steps for running the project.
+- Incorporate additional tools such as:
+  - Decanting
+  - Crafting
+  - Other utility functions
 
----
+## Getting Started
+
+### Update Database
+
+To update the database with real-time pricing data from the OSRS API:
+
+```bash
+python bot/data_collection/osrs_to_db.py
+```
+
+### Run Discord Bot
+
+To bring the bot online in the Discord server:
+
+```bash
+python bot/main.py
+```
