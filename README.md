@@ -4,40 +4,84 @@
 [![Python 3.11+ Supported](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/release/python-3100/)
 [![Uses Nix](https://img.shields.io/badge/uses-nix-%237EBAE4)](https://nixos.org/)
 
+## Project Overview
+
+OSRS Flip Finder is a tool designed to help Old School RuneScape (OSRS) players identify profitable item trading opportunities by providing real-time market data and advanced filtering capabilities.
+
 ## Project Goals
 
 ### 1. Connect to the Prices API
 
-- Fetch up-to-date OSRS item data in real-time
+Fetch up-to-date OSRS item data in real-time to provide accurate market information.
 
 ### 2. Store Data in SQLite
 
-- Continuously update the database with the latest prices every minute
-
-#### Sample Data Table
+Continuously update the database with the latest prices every minute, ensuring users have access to the most current market data.
 
 ### 3. Connect to Discord
 
-- **TODO:** Define required options (consult OSRS community)
+Integrate the tool seamlessly with Discord for easy access and interaction.
 
-### 4. Define Item embed card
+### 4. Define Item Embed Card
 
-- **TODO:** Create an item embed to highlight item data
-   1. Item name
-   2. Insta Buy/Sell Price
-   3. Margin for the Item
-   4. Volume
-   5. Insta Buy/Sell Time (ex: 5 min ago)
-   6. Picture of Item (use data from mapping API and then URL endpoint for wiki tiems) (need to add to DB)
-   7. Member non member (need to add to DB)
+Create a comprehensive item embed to highlight key item trading information, including:
 
-### 5. Define margin table
+- Item name
+- Insta Buy/Sell Price
+- Margin for the Item
+- Trading Volume
+- Insta Buy/Sell Timestamp
+- Item Picture
+- Membership Status
 
-- **TODO:** Based off input criteria display solid margins in a table for a user
-   1. Sort by largest margins above A
-   2. Include volume over B
-   3. Sold / Bought in the last C minutes
-   4. Value of item over D
+### 5. Define Margin Table
+
+Display margins based on user-defined input criteria, with features like:
+
+- Sorting by largest margins
+- Volume filtering
+- Time-based transaction tracking
+- Value-based item selection
+
+## Development Checklist
+
+### API & Data Management
+
+- [ ] Implement OSRS Prices API connection
+- [ ] Design SQLite database schema
+- [ ] Create data synchronization mechanism
+- [ ] Develop real-time price update system
+
+### Discord Integration
+
+- [ ] Set up Discord bot authentication
+- [ ] Define bot command structure
+- [ ] Implement user interaction flows
+- [ ] Create help and usage documentation
+
+### Item Embed Development
+
+- [ ] Design embed card template
+- [ ] Integrate Mapping API for item images
+- [ ] Add membership status tracking
+- [ ] Implement timestamp generation
+- [ ] Create margin calculation logic
+
+### Margin Table Features
+
+- [ ] Develop dynamic sorting algorithm
+- [ ] Implement volume-based filtering
+- [ ] Create time-based transaction tracking
+- [ ] Design value-based item selection
+- [ ] Build user preference configuration
+
+### Additional Features
+
+- [ ] Implement user profile system
+- [ ] Create custom filtering preferences
+- [ ] Add data visualization components
+- [ ] Develop comprehensive logging
+- [ ] Set up error handling and monitoring
 
 ## Getting Started
 
@@ -56,3 +100,14 @@ To bring the bot online in the Discord server:
 ```bash
 python bot/main.py
 ```
+
+## Future Roadmap
+
+- Expand filtering capabilities
+- Improve user experience
+- Add more advanced trading analytics
+- Create mobile and web interface options
+
+## Contributing
+
+Interested in contributing? Please read our contributing guidelines and feel free to submit pull requests.
