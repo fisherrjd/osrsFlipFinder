@@ -16,28 +16,28 @@
 
 #### Sample Data Table
 
-```
-╔═══════════════════════╤════════════╤═════════════╤══════════╤══════════╗
-║ Name                  │ InstaBuy   │ InstaSell   │ Margin   │ Volume   ║
-╟───────────────────────┼────────────┼─────────────┼──────────┼──────────╢
-║ Wine of zamorak       │ 800        │ 798         │ 2        │ 1.09M    ║
-║ Maple longbow         │ 277        │ 275         │ 2        │ 2.01M    ║
-║ Harralander potions   │ 785        │ 783         │ 2        │ 767.99K  ║
-║ Mithril seeds         │ 945        │ 943         │ 2        │ 395.44K  ║
-║ Grimy tarromin        │ 419        │ 417         │ 2        │ 671.34K  ║
-╚═══════════════════════╧════════════╧═════════════╧══════════╧══════════╝
-```
-
 ### 3. Connect to Discord
 
 - **TODO:** Define required options (consult OSRS community)
 
-### 4. Expand Features
+### 4. Define Item embed card
 
-- Incorporate additional tools such as:
-  - Decanting
-  - Crafting
-  - Other utility functions
+- **TODO:** Create an item embed to highlight item data
+   1. Item name
+   2. Insta Buy/Sell Price
+   3. Margin for the Item
+   4. Volume
+   5. Insta Buy/Sell Time (ex: 5 min ago)
+   6. Picture of Item (use data from mapping API and then URL endpoint for wiki tiems) (need to add to DB)
+   7. Member non member (need to add to DB)
+
+### 5. Define margin table
+
+- **TODO:** Based off input criteria display solid margins in a table for a user
+   1. Sort by largest margins above A
+   2. Include volume over B
+   3. Sold / Bought in the last C minutes
+   4. Value of item over D
 
 ## Getting Started
 
