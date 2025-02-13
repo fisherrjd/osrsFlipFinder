@@ -5,9 +5,35 @@ import os
 from typing import Final
 from tabulate import tabulate
 from format.custom_table import thick_line
+import sqlite3
+from collections import namedtuple
+
 
 load_dotenv()
 TOKEN: Final[str] = os.getenv('DISCORD_TOKEN')
+
+def query_margin():
+
+
+# Connect to SQLite database (or create it if it doesn't exist)
+conn = sqlite3.connect('bot/data_collection/osrs_prices.db')
+cursor = conn.cursor()
+# Define a named tuple for the item structure
+Item = namedtuple('Item', ['name', 'low', 'low_time', 'high', 'high_time', 'margin'])
+# Query to fetch the top 5 items with the largest margins
+cursor.execute('''
+    SELECT Item_name, low, , lowTime, high, highTime, margin 
+    FROM item_prices 
+    ORDER BY margin DESC 
+    LIMIT 5
+''')
+rows = cursor.fetchall()
+# Convert rows into a list of named tuples
+items = [Item(row[0], row[1], row[2], row[3], row[4], row[5]) for row in rows]
+
+
+
+
 
 bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
 
@@ -23,22 +49,23 @@ async def on_ready():
 # !profile - DEFINE STILL - fink docs? 
 
 
-items = [
-    ["Wine of zamorak", 800, 798, 2, "1.09M"],
-    ["Maple longbow", 277, 275, 2, "2.01M"],
-    ["Harralander potionas…", 785, 783, 2, "767.99K"],
-    ["Mithril seeds", 945, 943, 2, "395.44K"],
-    ["Grimy tarromin", 419, 417, 2, "671.34K"],
-]
+# items = [
+#     # ["name of item", low, high, margin]
+#     ["Wine of zamorak", 800, 798, 2],
+#     ["Maple longbow", 277, 275, 2],
+#     ["Harralander potionas…", 785, 783, 2],
+#     ["Mithril seeds", 945, 943, 2],
+#     ["Grimy tarromin", 419, 417, 2],
+# ]
 
 # Headers
-headers = ["Name", "InstaBuy", "InstaSell", "Margin", "Volume"]
+headers = ["Name", "Insta Buy", "Buy Time", "Insta Sell", "Sell Time", "Margin"]
 
 # Generate the table with the custom format
 table = tabulate(items, headers, tablefmt=thick_line)
 
 @bot.command()
-async def poop(ctx):
+async def top5(ctx):
     formatted_table = f"```{table}```"
     embed = discord.Embed(
     title="Item Table",
