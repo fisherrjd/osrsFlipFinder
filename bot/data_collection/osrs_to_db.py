@@ -29,9 +29,9 @@ def initialize_database(conn):
     columns = [
         ('item_name', 'TEXT DEFAULT "Unknown"'),
         ('high', 'INTEGER DEFAULT 0'),
-        ('highTime', 'INTEGER DEFAULT 0'),
+        ('high_time', 'INTEGER DEFAULT 0'),
         ('low', 'INTEGER DEFAULT 0'),
-        ('lowTime', 'INTEGER DEFAULT 0'),
+        ('low_time', 'INTEGER DEFAULT 0'),
         ('margin', 'INTEGER DEFAULT 0')
     ]
     
@@ -86,15 +86,15 @@ def save_to_db(prices_data, name_mapping, db_file):
         # Insert or update the item data
         cursor.execute(
             """
-            INSERT INTO item_prices (item_id, item_name, high, highTime, low, lowTime, margin)
+            INSERT INTO item_prices (item_id, item_name, high, high_time, low, low_time, margin)
             VALUES (?, ?, ?, ?, ?, ?, ?)
             ON CONFLICT(item_id)
             DO UPDATE SET
                 item_name = excluded.item_name,
                 high = excluded.high,
-                highTime = excluded.highTime,
+                high_time = excluded.high_time,
                 low = excluded.low,
-                lowTime = excluded.lowTime,
+                low_time = excluded.low_time,
                 margin = excluded.margin
             """,
             (item_id, name, high, high_time, low, low_time, margin),
