@@ -54,10 +54,13 @@ async def top(ctx, limit: int = 5):
     if limit > 10:
         limit = 10
         await ctx.send("The maximum limit is 10. Showing top 10 items.")
-
+            
+    # Table Headers
     headers = ["Name", "Insta Buy", "Buy Time", "Insta Sell", "Sell Time", "Margin"]
+
+    # grab items from DB
     items = query_margin(limit)
-    # Headers
+
     # Generate the table with the custom format
     table = tabulate(items, headers, tablefmt=thick_line)
     formatted_table = f"```{table}```"
@@ -67,7 +70,16 @@ async def top(ctx, limit: int = 5):
     color=discord.Color.blue()
     )
     await ctx.send(formatted_table)
-    
+
+@top.error
+async def top_error(ctx, error):
+    # Handle invalid input (e.g., !top test)
+    if isinstance(error, commands.BadArgument):
+        await ctx.send("Incorrect usage: `!top <number>`")
+    # Handle other unexpected errors
+    else:
+        await ctx.send(f"An error occurred: {error}")
+
 # Print the table
 # print(table)
 
