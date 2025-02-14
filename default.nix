@@ -24,6 +24,7 @@ let
         mypy
         fastapi
         uvicorn
+        fuzzywuzzy
         types-requests
         osrsreboxed
         discordpy
