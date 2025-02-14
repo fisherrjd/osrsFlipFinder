@@ -123,11 +123,11 @@ async def help(ctx):
     await ctx.send(embed=embed)
 
 @bot.command()
-async def item(ctx, item_name):
+async def item(ctx, *, item_name):
             
     # Table Headers
     headers = ["Name", "Insta Buy", "Buy Time", "Insta Sell", "Sell Time", "Margin"]
-
+    await ctx.send(f"Searching for item: **{item_name}**")
     # grab items from DB
     items = fuzzy_lookup_item_by_name(item_name)
 
