@@ -6,6 +6,9 @@ from utils.tax import calc_margin
 # Define the API URLs
 LATEST_API_URL = "https://prices.runescape.wiki/api/v1/osrs/latest"
 MAPPING_API_URL = "https://prices.runescape.wiki/api/v1/osrs/mapping"
+VOLUME_PER_ID_URL = (
+    "https://prices.runescape.wiki/api/v1/osrs/timeseries?timestep=24h&id="
+)
 HEADERS = {
     "User-Agent": "@PapaBear#2007",
     "From": "dev@jade.rip",  # This is another valid field

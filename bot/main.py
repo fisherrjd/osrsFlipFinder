@@ -6,6 +6,7 @@ from typing import Final
 from tabulate import tabulate
 from format.custom_table import thick_line
 from queries import query_margin_recent, fuzzy_lookup_item_by_name
+from player.highscores import fetch_highscores
 
 load_dotenv()
 TOKEN: Final[str] = os.getenv("DISCORD_TOKEN")
@@ -72,6 +73,17 @@ async def top_error(ctx, error):
         await ctx.send(f"An error occurred: {error}")
 
 
+# !player
+@bot.command()
+async def player(ctx, username):
+    if username == "big16ind":
+        await ctx.send("fuckin NERD")
+    else:
+        temp = fetch_highscores(username)
+        await ctx.send(temp)
+
+
+# !help
 @bot.command()
 async def help(ctx, command_name: str = None):
     """Displays a list of available commands or detailed help for a specific command."""
