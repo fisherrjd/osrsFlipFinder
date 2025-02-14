@@ -47,3 +47,37 @@ in
   inherit name;
   NIXUP = "0.0.8";
 })) // { inherit scripts; }
+
+
+### Script info stuff ###
+# run-data = pkgs.pog {
+#   name = "run-data";
+#   script = ''
+#     cd ./flipfinder/bot/data_collection || exit
+#     ${tools.python}/bin/python osrs_to_db.py
+#   '';
+# };
+
+# run-bot = pkgs.pog {
+#   name = "run-bot";
+#   script = ''
+#     cd ./flipfinder/bot || exit
+#     ${tools.python}/bin/python main.py
+#   '';
+# };
+# run = pkgs.pog {
+#   name = "run";
+#   script = ''
+#     ${pkgs.concurrently}/bin/concurrently \
+#       --names "caddy,react,fastapi" \
+#       --prefix-colors "cyan,blue,green" \
+#       "run-data" \
+#       "run-bot" \
+#   '';
+# };
+
+# scripts = [
+#   run-data
+#   run-bot
+#   run
+# ];
