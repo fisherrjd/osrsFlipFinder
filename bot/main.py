@@ -153,27 +153,7 @@ async def top(ctx, limit: int = 5):
     )
     await ctx.send(formatted_table)
 
-@bot.command()
-async def help(ctx):
-    embed = discord.Embed(
-        title="Bot Commands",
-        description="List of available commands:",
-        color=discord.Color.green()
-    )
-    
-    embed.add_field(
-        name="!top <number>",
-        value="Displays the top items based on margin. Default is 5, max is 10.",
-        inline=False
-    )
-    
-    embed.add_field(
-        name="!help",
-        value="Shows this help message.",
-        inline=False
-    )
 
-    await ctx.send(embed=embed)
 
 @bot.command()
 async def item(ctx, *, item_name):
@@ -205,6 +185,50 @@ async def top_error(ctx, error):
 
 # Print the table
 # print(table)
+import discord
+
+@bot.command()
+async def help(ctx, command_name: str = None):
+    """Displays a list of available commands or detailed help for a specific command."""
+    
+    commands_info = {
+        "top": {
+            "usage": "`!top [limit]`",
+            "description": "Displays the top items by margin. The limit defaults to 5 and caps at 10."
+        },
+        "item": {
+            "usage": "`!item <item_name>`",
+            "description": "Searches for an item by name and displays its buy/sell margins."
+        }
+    }
+
+    if command_name:
+        command_name = command_name.lower()
+        if command_name in commands_info:
+            cmd_info = commands_info[command_name]
+            embed = discord.Embed(
+                title=f"Help: `{command_name}`",
+                color=discord.Color.blue()
+            )
+            embed.add_field(name="Usage", value=cmd_info["usage"], inline=False)
+            embed.add_field(name="Description", value=cmd_info["description"], inline=False)
+            embed.set_footer(text="Use !help to see all available commands.")
+            await ctx.send(embed=embed)
+        else:
+            await ctx.send(f"❌ Command `{command_name}` not found. Use `!help` to see available commands.")
+    else:
+        embed = discord.Embed(
+            title="📖 Bot Commands",
+            description="Here is a list of available commands. Use `!help <command>` for details.",
+            color=discord.Color.green()
+        )
+
+        for cmd, info in commands_info.items():
+            embed.add_field(name=f"🔹 `{cmd}`", value=info["description"], inline=False)
+
+        embed.set_footer(text="Use !help <command> for more details.")
+        await ctx.send(embed=embed)
+
 
 
 bot.run(TOKEN)
