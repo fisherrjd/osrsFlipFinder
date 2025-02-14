@@ -85,12 +85,12 @@ Display margins based on user-defined input criteria, with features like:
 
 ## Getting Started
 
-### Update Database
+### Run Update Database
 
 To update the database with real-time pricing data from the OSRS API:
 
 ```bash
-python bot/data_collection/osrs_to_db.py
+run-data
 ```
 
 ### Run Discord Bot
@@ -98,7 +98,13 @@ python bot/data_collection/osrs_to_db.py
 To bring the bot online in the Discord server:
 
 ```bash
-python bot/main.py
+run-bot
+```
+
+### Full Startup
+Launch both bot and data collection
+```bash
+run
 ```
 
 ## Future Roadmap
