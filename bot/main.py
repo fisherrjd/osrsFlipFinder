@@ -45,13 +45,12 @@ def query_margin_recent(limit):
 def fuzzy_lookup_item_by_name(item_name):
     conn = sqlite3.connect('bot/data_collection/osrs_prices.db')
     cursor = conn.cursor()
-    threshold=70
     # Execute the SELECT query to find the item by name
     cursor.execute("SELECT item_name FROM item_prices")
     
     all_items = [row[0] for row in cursor.fetchall()]
     
-    matches = process.extractBests(item_name, all_items, limit=5, score_cutoff=threshold)
+    matches = process.extractBests(item_name, all_items, score_cutoff=70)
         # Fetch the result
     matched_items = []
     for match, score in matches:
