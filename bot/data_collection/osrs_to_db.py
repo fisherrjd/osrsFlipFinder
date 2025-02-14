@@ -2,14 +2,13 @@ import requests
 import sqlite3
 import time
 from utils.tax import calc_margin
-from utils.time import humanize_time
 
 # Define the API URLs
 LATEST_API_URL = "https://prices.runescape.wiki/api/v1/osrs/latest"
 MAPPING_API_URL = "https://prices.runescape.wiki/api/v1/osrs/mapping"
 HEADERS = {
     "User-Agent": "@PapaBear#2007",
-    "From": "fisherrjd@gmail.com",  # This is another valid field
+    "From": "dev@jade.rip",  # This is another valid field
 }
 # SQLite database file
 DB_FILE = "osrs_prices.db"
@@ -73,12 +72,12 @@ def save_to_db(prices_data, name_mapping, db_file):
     
     # Insert or update item prices and names
     for item_id, prices in prices_data.get('data', {}).items():
-        # Safely extract values with defaults
+        # Safely extract values with defaultsW
         name = name_mapping.get(item_id, 'Unknown')
         high = prices.get('high', 0) or 0
-        high_time = humanize_time(prices.get('highTime', 0) or 0)
+        high_time = prices.get('highTime', 0)
         low = prices.get('low', 0) or 0
-        low_time = humanize_time(prices.get('lowTime', 0) or 0)
+        low_time = prices.get('lowTime', 0)
         
         # Calculate margin using imported function
         margin = calc_margin(high, low)
