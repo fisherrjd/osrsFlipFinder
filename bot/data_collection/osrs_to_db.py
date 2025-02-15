@@ -1,19 +1,20 @@
-import requests
 import sqlite3
 import time
+
+import requests
+
 from utils.tax import calc_margin
+
 
 # Define the API URLs
 LATEST_API_URL = "https://prices.runescape.wiki/api/v1/osrs/latest"
 MAPPING_API_URL = "https://prices.runescape.wiki/api/v1/osrs/mapping"
-VOLUME_PER_ID_URL = (
-    "https://prices.runescape.wiki/api/v1/osrs/timeseries?timestep=24h&id="
-)
+VOLUME_API_URL = "https://prices.runescape.wiki/api/v1/osrs/volumes"
+
 HEADERS = {
     "User-Agent": "@PapaBear#2007",
-    "From": "dev@jade.rip",  # This is another valid field
+    "From": "dev@jade.rip",
 }
-# SQLite database file
 DB_FILE = "osrs_prices.db"
 
 
@@ -38,6 +39,7 @@ def initialize_database(conn):
         ("low", "INTEGER DEFAULT 0"),
         ("low_time", "INTEGER DEFAULT 0"),
         ("margin", "INTEGER DEFAULT 0"),
+        ("volume", "INTEGER DEFAULT 0"),
     ]
 
     for column, dtype in columns:
@@ -70,7 +72,7 @@ def process_mapping_data(mapping_data):
     return name_mapping
 
 
-def save_to_db(prices_data, name_mapping, db_file):
+def save_to_db(prices_data, volume_data, name_mapping, db_file):
     """Save the fetched data into an SQLite database."""
     conn = sqlite3.connect(db_file)
 
@@ -81,12 +83,13 @@ def save_to_db(prices_data, name_mapping, db_file):
 
     # Insert or update item prices and names
     for item_id, prices in prices_data.get("data", {}).items():
-        # Safely extract values with defaultsW
+        # Safely extract values with defaults
         name = name_mapping.get(item_id, "Unknown")
         high = prices.get("high", 0) or 0
         high_time = prices.get("highTime", 0)
         low = prices.get("low", 0) or 0
         low_time = prices.get("lowTime", 0)
+        volume = volume_data.get("data", {}).get(item_id, 0)
 
         # Calculate margin using imported function
         margin = calc_margin(high, low)
@@ -94,8 +97,8 @@ def save_to_db(prices_data, name_mapping, db_file):
         # Insert or update the item data
         cursor.execute(
             """
-            INSERT INTO item_prices (item_id, item_name, high, high_time, low, low_time, margin)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO item_prices (item_id, item_name, high, high_time, low, low_time, margin, volume)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             ON CONFLICT(item_id)
             DO UPDATE SET
                 item_name = excluded.item_name,
@@ -103,9 +106,10 @@ def save_to_db(prices_data, name_mapping, db_file):
                 high_time = excluded.high_time,
                 low = excluded.low,
                 low_time = excluded.low_time,
-                margin = excluded.margin
+                margin = excluded.margin,
+                volume = excluded.volume
             """,
-            (item_id, name, high, high_time, low, low_time, margin),
+            (item_id, name, high, high_time, low, low_time, margin, volume),
         )
 
     conn.commit()
@@ -121,11 +125,14 @@ def main():
         # Fetch the latest item prices
         latest_data = fetch_data(LATEST_API_URL)
 
+        # Fetch volume data
+        volume_data = fetch_data(VOLUME_API_URL)
+
         # Process the mapping data into a dictionary of item_id -> name
         name_mapping = process_mapping_data(mapping_data)
 
         # Save the data to the database
-        save_to_db(latest_data, name_mapping, DB_FILE)
+        save_to_db(latest_data, volume_data, name_mapping, DB_FILE)
         print("Data saved successfully!")
 
     except Exception as e:

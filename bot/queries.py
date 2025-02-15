@@ -1,9 +1,11 @@
-from fuzzywuzzy import process
-import sqlite3
 import datetime
+import sqlite3
 from collections import namedtuple
-from data_collection.utils.time import humanize_time
+
+from fuzzywuzzy import process
+
 from data_collection.utils.format import format_price
+from data_collection.utils.time import humanize_time
 
 
 def query_margin_recent(limit):
@@ -22,7 +24,7 @@ def query_margin_recent(limit):
 
     # Define a named tuple for the item structure
     Item = namedtuple(
-        "Item", ["name", "low", "low_time", "high", "high_time", "margin"]
+        "Item", ["name", "low", "low_time", "high", "high_time", "margin", "volume"]
     )
 
     # Calculate time window
@@ -37,14 +39,16 @@ def query_margin_recent(limit):
                low_time,
                high,
                high_time,
-               margin
+               margin,
+               volume
         FROM item_prices
         WHERE high_time >= ?
         AND low_time >= ?
+        AND volume >= ?
         ORDER BY margin DESC
         LIMIT ?
     """,
-        (ten_minutes_ago, ten_minutes_ago, limit),
+        (ten_minutes_ago, ten_minutes_ago, 1000, limit),
     )
 
     rows = cursor.fetchall()
@@ -59,6 +63,7 @@ def query_margin_recent(limit):
             high=format_price(row[3]),
             high_time=humanize_time(row[4]),
             margin=format_price(row[5]),
+            volume=format_price(row[6]),
         )
         for row in rows
     ]
@@ -71,7 +76,7 @@ def fuzzy_lookup_item_by_name(item_name):
 
     # Define a named tuple for the item structure
     Item = namedtuple(
-        "Item", ["name", "low", "low_time", "high", "high_time", "margin"]
+        "Item", ["name", "low", "low_time", "high", "high_time", "margin", "volume"]
     )
 
     # Execute the SELECT query to get all item names
@@ -86,7 +91,7 @@ def fuzzy_lookup_item_by_name(item_name):
     for match, score in matches:
         cursor.execute(
             """
-            SELECT Item_name, low, low_time, high, high_time, margin
+            SELECT Item_name, low, low_time, high, high_time, margin, volume
             FROM item_prices 
             WHERE item_name = ?
         """,
@@ -102,6 +107,7 @@ def fuzzy_lookup_item_by_name(item_name):
                     format_price(row[3]),
                     humanize_time(row[4]),
                     format_price(row[5]),
+                    volume=format_price(row[6]),
                 )
             )
 

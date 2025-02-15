@@ -1,15 +1,26 @@
+import os
+from typing import Final
+
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
-import os
-from typing import Final
 from tabulate import tabulate
+
 from format.custom_table import thick_line
-from queries import query_margin_recent, fuzzy_lookup_item_by_name
 from player.highscores import fetch_highscores
+from queries import query_margin_recent, fuzzy_lookup_item_by_name
 
 load_dotenv()
 TOKEN: Final[str] = os.getenv("DISCORD_TOKEN")
+Item_Info_Headers = [
+    "Name",
+    "Insta Buy",
+    "Buy Time",
+    "Insta Sell",
+    "Sell Time",
+    "Margin",
+    "24h Volume",
+]
 
 
 bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
@@ -29,6 +40,7 @@ async def on_ready():
 # !profile - DEFINE STILL - fink docs?
 
 
+# !top X
 @bot.command()
 async def top(ctx, limit: int = 5):
     # Cap the limit at 10
@@ -37,30 +49,34 @@ async def top(ctx, limit: int = 5):
         await ctx.send("The maximum limit is 10. Showing top 10 items.")
 
     # Table Headers
-    headers = ["Name", "Insta Buy", "Buy Time", "Insta Sell", "Sell Time", "Margin"]
 
     # grab items from DB
     items = query_margin_recent(limit)
 
     # Generate the table with the custom format
-    table = tabulate(items, headers, tablefmt=thick_line)
+    table = tabulate(items, Item_Info_Headers, tablefmt=thick_line)
     formatted_table = f"```{table}```"
     await ctx.send(formatted_table)
 
 
+# !item
 @bot.command()
 async def item(ctx, *, item_name):
+    if item_name == "unknown":
+        await ctx.send("```No results found```")
+    else:
+        # Table Headers
+        await ctx.send(f"Searching for item: **{item_name}**")
+        # grab items from DB
+        items = fuzzy_lookup_item_by_name(item_name)
 
-    # Table Headers
-    headers = ["Name", "Insta Buy", "Buy Time", "Insta Sell", "Sell Time", "Margin"]
-    await ctx.send(f"Searching for item: **{item_name}**")
-    # grab items from DB
-    items = fuzzy_lookup_item_by_name(item_name)
-
-    # Generate the table with the custom format
-    table = tabulate(items, headers, tablefmt=thick_line)
-    formatted_table = f"```{table}```"
-    await ctx.send(formatted_table)
+        if items:
+            # Generate the table with the custom format
+            table = tabulate(items, Item_Info_Headers, tablefmt=thick_line)
+            formatted_table = f"```{table}```"
+            await ctx.send(formatted_table)
+        else:
+            await ctx.send("```No Results...```")
 
 
 @top.error
