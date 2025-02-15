@@ -8,7 +8,8 @@ from tabulate import tabulate
 
 from format.custom_table import thick_line
 from player.highscores import fetch_highscores
-from queries import query_margin_recent, fuzzy_lookup_item_by_name
+from queries import query_margin_recent, fuzzy_lookup_item_by_name, flip_search
+from data_collection.utils.format import parse_shorthand
 
 load_dotenv()
 TOKEN: Final[str] = os.getenv("DISCORD_TOKEN")
@@ -68,11 +69,11 @@ async def item(ctx, *, item_name):
         # Table Headers
         await ctx.send(f"Searching for item: **{item_name}**")
         # grab items from DB
-        items = fuzzy_lookup_item_by_name(item_name)
+        result = fuzzy_lookup_item_by_name(item_name)
 
-        if items:
+        if result:
             # Generate the table with the custom format
-            table = tabulate(items, Item_Info_Headers, tablefmt=thick_line)
+            table = tabulate(result, Item_Info_Headers, tablefmt=thick_line)
             formatted_table = f"```{table}```"
             await ctx.send(formatted_table)
         else:
@@ -99,6 +100,38 @@ async def player(ctx, username):
         await ctx.send(temp)
 
 
+# !flip
+# TODO:
+# Implement better usage
+#
+@bot.command()
+async def flip(
+    ctx,
+    max_buy_price: str = "2147483647",
+    min_volume: int = 1000,
+    time_range_minutes: int = 10,
+):
+    try:
+        # Parse shorthand values
+        max_price = parse_shorthand(max_buy_price)
+        # Perform the search with parsed values
+        result = flip_search(max_price, min_volume, time_range_minutes)
+
+        if result:
+            # Generate the table with the custom format
+            table = tabulate(result, Item_Info_Headers, tablefmt=thick_line)
+            formatted_table = f"```{table}```"
+            await ctx.send(formatted_table)
+        else:
+            await ctx.send("```No Results...```")
+
+    except ValueError as e:
+        # Catch any ValueErrors thrown by parse_shorthand
+        await ctx.send(
+            f"❌ Error: {str(e)}. Please use shorthand notation like 10k, 10m, etc."
+        )
+
+
 # !help
 @bot.command()
 async def help(ctx, command_name: str = None):
@@ -112,6 +145,10 @@ async def help(ctx, command_name: str = None):
         "item": {
             "usage": "`!item <item_name>`",
             "description": "Searches for an item by name and displays its buy/sell margins.",
+        },
+        "flip": {
+            "usage": "`!flip [max_buy_price] [min_volume] [time_range_minutes]`",
+            "description": "Searches for items based on the max buy price, minimum volume, and time range in minutes. Default values are max_buy_price=2147483647, min_volume=1000, time_range_minutes=10.",
         },
     }
 
