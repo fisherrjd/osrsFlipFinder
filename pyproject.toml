@@ -8,7 +8,6 @@ dependencies = [
     "black>=25.1.0",
     "discord-py>=2.4.0",
     "fuzzywuzzy>=0.18.0",
-    "mypy>=1.15.0",
     "osrsreboxed>=2.3.33",
     "pandas>=2.2.3",
     "pytest>=8.3.4",
