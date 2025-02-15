@@ -13,15 +13,6 @@ Item = namedtuple(
 
 
 def query_margin_recent(limit):
-    """
-    Query the database for items with the largest margins in the last 10 minutes.
-
-    Args:
-        limit (int): Maximum number of items to return
-
-    Returns:
-        list[Item]: List of items with their prices and margins, sorted by margin descending
-    """
     # Connect to SQLite database (or create it if it doesn't exist)
     conn = sqlite3.connect("data_collection/osrs_prices.db")
     cursor = conn.cursor()
