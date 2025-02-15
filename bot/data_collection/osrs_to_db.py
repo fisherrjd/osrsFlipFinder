@@ -1,7 +1,10 @@
-import requests
 import sqlite3
 import time
+
+import requests
+
 from utils.tax import calc_margin
+
 
 # Define the API URLs
 LATEST_API_URL = "https://prices.runescape.wiki/api/v1/osrs/latest"
