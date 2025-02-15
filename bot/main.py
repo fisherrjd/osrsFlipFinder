@@ -1,6 +1,5 @@
 import os
 from typing import Final
-
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
@@ -11,8 +10,11 @@ from player.highscores import fetch_highscores
 from queries import query_margin_recent, fuzzy_lookup_item_by_name, flip_search
 from data_collection.utils.format import parse_shorthand
 
+# Load environment variables
 load_dotenv()
 TOKEN: Final[str] = os.getenv("DISCORD_TOKEN")
+
+# Item Info Table Headers
 Item_Info_Headers = [
     "Name",
     "Insta Buy",
@@ -23,25 +25,22 @@ Item_Info_Headers = [
     "24h Volume",
 ]
 
-
+# Initialize the bot
 bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
 bot.remove_command("help")
 
 
+# Event when bot is online
 @bot.event
 async def on_ready():
     print("Bot is Online")
 
 
 ## TODO
-# !help
-# !info {item name}
-# !lookup {username}
-# !margin {min margin}
-# !profile - DEFINE STILL - fink docs?
+# - Implement help, info, lookup, margin, and profile commands.
 
 
-# !top X
+# Command: !top
 @bot.command()
 async def top(ctx, limit: int = 5):
     # Cap the limit at 10
@@ -49,30 +48,29 @@ async def top(ctx, limit: int = 5):
         limit = 10
         await ctx.send("The maximum limit is 10. Showing top 10 items.")
 
-    # Table Headers
-
-    # grab items from DB
+    # Get items from the database
     items = query_margin_recent(limit)
 
-    # Generate the table with the custom format
+    # Generate and send the table
     table = tabulate(items, Item_Info_Headers, tablefmt=thick_line)
     formatted_table = f"```{table}```"
     await ctx.send(formatted_table)
 
 
-# !item
+# Command: !item
 @bot.command()
 async def item(ctx, *, item_name):
     if item_name == "unknown":
         await ctx.send("```No results found```")
     else:
-        # Table Headers
+        # Inform user of search
         await ctx.send(f"Searching for item: **{item_name}**")
-        # grab items from DB
+
+        # Get item data from the database
         result = fuzzy_lookup_item_by_name(item_name)
 
         if result:
-            # Generate the table with the custom format
+            # Generate and send the table
             table = tabulate(result, Item_Info_Headers, tablefmt=thick_line)
             formatted_table = f"```{table}```"
             await ctx.send(formatted_table)
@@ -80,17 +78,17 @@ async def item(ctx, *, item_name):
             await ctx.send("```No Results...```")
 
 
+# Error handler for !top
 @top.error
 async def top_error(ctx, error):
-    # Handle invalid input (e.g., !top test)
+    # Handle invalid arguments
     if isinstance(error, commands.BadArgument):
         await ctx.send("Incorrect usage: `!top <number>`")
-    # Handle other unexpected errors
     else:
         await ctx.send(f"An error occurred: {error}")
 
 
-# !player
+# Command: !player
 @bot.command()
 async def player(ctx, username):
     if username == "big16ind":
@@ -100,25 +98,26 @@ async def player(ctx, username):
         await ctx.send(temp)
 
 
-# !flip
-# TODO:
-# Implement better usage
-#
+# Command: !flip
 @bot.command()
 async def flip(
     ctx,
-    max_buy_price: str = "2147483647",
-    min_volume: int = 1000,
-    time_range_minutes: int = 10,
+    max_buy_price: str = "2147483647",  # Default value
+    min_volume: int = 1000,  # Default value
+    time_range_minutes: int = 10,  # Default value
 ):
+    await ctx.send(
+        f"Finding flips under {max_buy_price} with volume greater than {min_volume} traded in the last {time_range_minutes} minutes."
+    )
     try:
         # Parse shorthand values
         max_price = parse_shorthand(max_buy_price)
-        # Perform the search with parsed values
+
+        # Perform the search
         result = flip_search(max_price, min_volume, time_range_minutes)
 
         if result:
-            # Generate the table with the custom format
+            # Generate and send the table
             table = tabulate(result, Item_Info_Headers, tablefmt=thick_line)
             formatted_table = f"```{table}```"
             await ctx.send(formatted_table)
@@ -126,13 +125,13 @@ async def flip(
             await ctx.send("```No Results...```")
 
     except ValueError as e:
-        # Catch any ValueErrors thrown by parse_shorthand
+        # Catch errors from invalid shorthand
         await ctx.send(
             f"❌ Error: {str(e)}. Please use shorthand notation like 10k, 10m, etc."
         )
 
 
-# !help
+# Command: !help
 @bot.command()
 async def help(ctx, command_name: str = None):
     """Displays a list of available commands or detailed help for a specific command."""
@@ -183,4 +182,5 @@ async def help(ctx, command_name: str = None):
         await ctx.send(embed=embed)
 
 
+# Run the bot
 bot.run(TOKEN)
