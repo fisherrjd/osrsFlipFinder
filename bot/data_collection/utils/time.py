@@ -1,6 +1,7 @@
 import time
 from datetime import datetime
 
+
 def humanize_time(timestamp: int) -> str:
     """Convert Unix timestamp to human-readable format with hours, minutes, and seconds."""
 
@@ -20,3 +21,9 @@ def humanize_time(timestamp: int) -> str:
         return f"{minutes} minute{'s' if minutes > 1 else ''} ago"
     else:
         return f"{seconds} second{'s' if seconds > 1 else ''} ago"
+
+
+def calc_time_range(time_in_minutes):
+    current_time = int(datetime.datetime.now().timestamp())
+    result = current_time - (time_in_minutes * 60)
+    return result

@@ -4,8 +4,8 @@ from collections import namedtuple
 
 from fuzzywuzzy import process
 
-from data_collection.utils.format import format_price, parse_shorthand
-from data_collection.utils.time import humanize_time
+from data_collection.utils.format import format_price
+from data_collection.utils.time import humanize_time, calc_time_range
 
 Item = namedtuple(
     "Item", ["name", "low", "low_time", "high", "high_time", "margin", "volume"]
@@ -20,9 +20,7 @@ def query_margin_recent(limit):
     # Define a named tuple for the item structure
 
     # Calculate time window
-    current_time = int(datetime.datetime.now().timestamp())
-    ten_minutes_ago = current_time - (10 * 60)
-
+    ten_minutes_ago = calc_time_range(10)
     # Query to fetch items with the largest margins
     cursor.execute(
         """
@@ -113,8 +111,7 @@ def flip_search(max_price, min_volume, time_range_minutes):
     # Define a named tuple for the item structure
 
     # Calculate time window
-    current_time = int(datetime.datetime.now().timestamp())
-    calc_range = current_time - (time_range_minutes * 60)
+    calc_range = calc_time_range(time_range_minutes)
 
     # Query to fetch items with the largest margins
     cursor.execute(
