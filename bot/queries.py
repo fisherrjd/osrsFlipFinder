@@ -63,43 +63,9 @@ def fuzzy_lookup_item_by_name(item_name):
     conn = sqlite3.connect("data_collection/osrs_prices.db")
     cursor = conn.cursor()
 
-    # Define a named tuple for the item structure
-
-    # Execute the SELECT query to get all item names
-    cursor.execute("SELECT item_name FROM item_prices")
-    all_items = [row[0] for row in cursor.fetchall()]
-
-    # Find fuzzy matches with a score cutoff of 70
-    matches = process.extractBests(item_name, all_items, score_cutoff=70)
-
-    # Fetch the complete data for matched items
-    matched_items = []
-    for match, score in matches:
-        cursor.execute(
-            """
-            SELECT Item_name, low, low_time, high, high_time, margin, volume
-            FROM item_prices 
-            WHERE item_name = ?
-        """,
-            (match,),
-        )
-        row = cursor.fetchone()
-        if row:
-            matched_items.append(
-                Item(
-                    row[0],
-                    format_price(row[1]),
-                    humanize_time(row[2]),
-                    format_price(row[3]),
-                    humanize_time(row[4]),
-                    format_price(row[5]),
-                    volume=format_price(row[6]),
-                )
-            )
-
     # Close the connection
     conn.close()
-    return matched_items
+    return "WIP"
 
 
 def flip_search(max_price, min_volume, time_range_minutes):

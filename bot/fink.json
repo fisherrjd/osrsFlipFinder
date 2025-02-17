@@ -1,0 +1,51 @@
+{
+    "message": {
+        "id": 1340472374901870664,
+        "channel": {
+            "id": 1308942081779171441,
+            "name": "bot_testing",
+            "position": 3,
+            "nsfw": false,
+            "news": false,
+            "category_id": 1280231614982393950
+        },
+        "type": "default",
+        "author": {
+            "id": 200276552179515402,
+            "name": "fastfink",
+            "global_name": "FastFink",
+            "bot": false,
+            "nick": null,
+            "guild": {
+                "id": 1035232808563658852,
+                "name": "Dog House",
+                "shard_id": 0,
+                "chunked": true,
+                "member_count": 26
+            }
+        },
+        "flags": 0
+    },
+    "bot": "Bot object at 0x7f5613e525a0",
+    "args": [
+        "Context object at 0x7f5613fcb6b0"
+    ],
+    "kwargs": {},
+    "prefix": "!",
+    "command": "Command object at 0x7f5613d35220",
+    "view": {
+        "pos": 8,
+        "prev": 1,
+        "end": 8,
+        "eof": true
+    },
+    "invoked_with": "context",
+    "invoked_parents": [],
+    "invoked_subcommand": null,
+    "subcommand_passed": null,
+    "command_failed": false,
+    "current_parameter": null,
+    "current_argument": null,
+    "interaction": null,
+    "_state": "ConnectionState object at 0x7f5614fd7170"
+}

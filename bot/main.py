@@ -4,6 +4,7 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 from tabulate import tabulate
+import pprint
 
 from format.custom_table import thick_line
 from player.highscores import fetch_highscores
@@ -180,6 +181,12 @@ async def help(ctx, command_name: str = None):
 
         embed.set_footer(text="Use !help <command> for more details.")
         await ctx.send(embed=embed)
+
+
+@bot.command()
+async def context(ctx):
+    print(vars(ctx))  # Pretty print ctx attributes
+    await ctx.send("Check the bot console for ctx details.")
 
 
 # Run the bot
