@@ -9,83 +9,6 @@
 OSRS Flip Finder is a tool designed to help Old School RuneScape (OSRS) players identify profitable item trading opportunities by providing real-time market data and advanced filtering capabilities
 
 
-## Project Goals
-
-### 1. Connect to the Prices API
-
-Fetch up-to-date OSRS item data in real-time to provide accurate market information.
-
-### 2. Store Data in SQLite
-
-Continuously update the database with the latest prices every minute, ensuring users have access to the most current market data.
-
-### 3. Connect to Discord
-
-Integrate the tool seamlessly with Discord for easy access and interaction.
-
-### 4. Define Item Embed Card
-
-Create a comprehensive item embed to highlight key item trading information, including:
-
-- Item name
-- Insta Buy/Sell Price
-- Margin for the Item
-- Trading Volume
-- Insta Buy/Sell Timestamp
-- Item Picture
-- Membership Status
-
-### 5. Define Margin Table
-
-Display margins based on user-defined input criteria, with features like:
-
-- Sorting by largest margins
-- Volume filtering
-- Time-based transaction tracking
-- Value-based item selection
-
-## Development Checklist
-
-### API & Data Management
-
-- [ ] Implement OSRS Prices API connection
-- [ ] Design SQLite database schema
-- [ ] Create data synchronization mechanism
-- [ ] Develop real-time price update system
-
-### Discord Integration
-
-- [ ] Set up Discord bot authentication
-- [ ] Define bot command structure
-- [ ] Implement user interaction flows
-- [ ] Create help and usage documentation
-
-### Item Embed Development
-
-- [ ] Design embed card template
-- [ ] Integrate Mapping API for item images
-- [ ] Add membership status tracking
-- [ ] Implement timestamp generation
-- [ ] Create margin calculation logic
-
-### Margin Table Features
-
-- [ ] Develop dynamic sorting algorithm
-- [ ] Implement volume-based filtering
-- [ ] Create time-based transaction tracking
-- [ ] Design value-based item selection
-- [ ] Build user preference configuration
-
-### Additional Features
-
-- [ ] Implement user profile system
-- [ ] Create custom filtering preferences
-- [ ] Add data visualization components
-- [ ] Develop comprehensive logging
-- [ ] Set up error handling and monitoring
-
-## Getting Started
-
 ### Run Update Database
 
 To update the database with real-time pricing data from the OSRS API:
@@ -110,10 +33,11 @@ run
 
 ## Future Roadmap
 
-- Expand filtering capabilities
+- Expand Commands
 - Improve user experience
 - Add more advanced trading analytics
-- Create mobile and web interface options
+- Improve Docs
+- CI Pipeline and deployment pathways
 
 ## Contributing
 
