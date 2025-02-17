@@ -1,7 +1,7 @@
 import sqlite3
 
 
-DB_FILE = "users.db"
+DB_FILE = "players.db"
 
 
 def initialize_database(conn):
@@ -11,8 +11,8 @@ def initialize_database(conn):
     # Check and add columns if they don't exist
     cursor.execute(
         """
-    CREATE TABLE IF NOT EXISTS item_prices (
-        item_id INTEGER PRIMARY KEY
+    CREATE TABLE IF NOT EXISTS players (
+        discord_id INTEGER PRIMARY KEY
     );
     """
     )
@@ -36,3 +36,4 @@ def initialize_database(conn):
 def main():
     conn = sqlite3.connect(DB_FILE)
     initialize_database(conn)
+    conn.close()
