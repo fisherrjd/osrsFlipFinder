@@ -42,4 +42,4 @@ run
 ## Contributing
 
 Interested in contributing? Please read our contributing guidelines and feel free to submit pull requests.
-Invite link - https://discord.com/oauth2/authorize?client_id=YOUR_CLIENT_ID&permissions=BOT_PERMISSIONS&scope=bot
+Invite link - https://discord.com/oauth2/authorize?client_id=1308930821566107668&permissions=59392&scope=bot
