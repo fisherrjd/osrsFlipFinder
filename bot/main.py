@@ -10,6 +10,7 @@ from format.custom_table import thick_line
 from player.highscores import fetch_highscores
 from queries import query_margin_recent, fuzzy_lookup_item_by_name, flip_search
 from data_collection.utils.format import parse_shorthand
+import data_collection.player
 
 # Load environment variables
 load_dotenv()
@@ -187,6 +188,11 @@ async def help(ctx, command_name: str = None):
 async def context(ctx):
     print(vars(ctx))  # Pretty print ctx attributes
     await ctx.send("Check the bot console for ctx details.")
+
+
+@bot.command()
+async def add(ctx, name):
+    print(name)
 
 
 # Run the bot
