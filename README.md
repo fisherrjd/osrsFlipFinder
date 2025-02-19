@@ -38,6 +38,7 @@ run
 - Add more advanced trading analytics
 - Improve Docs
 - CI Pipeline and deployment pathways
+- !noloss (min price to sell item for no loss)
 
 ## Contributing
 
