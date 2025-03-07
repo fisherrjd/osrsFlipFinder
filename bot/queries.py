@@ -12,16 +12,19 @@ Item = namedtuple(
 )
 
 
-def query_margin_recent(limit):
-    # Connect to SQLite database (or create it if it doesn't exist)
+def query_margin_recent(limit: int) -> list:
+    """Lookup for "best" margins in the last 10 minutes with no other restricitons
+
+    Args:
+        limit: How many items to display
+
+    Returns:
+        returns list of "limit" items caps at 10
+    """
     conn = sqlite3.connect("data_collection/osrs_prices.db")
     cursor = conn.cursor()
 
-    # Define a named tuple for the item structure
-
-    # Calculate time window
     ten_minutes_ago = calc_time_range(10)
-    # Query to fetch items with the largest margins
     cursor.execute(
         """
         SELECT Item_name,
@@ -43,7 +46,6 @@ def query_margin_recent(limit):
     rows = cursor.fetchall()
     conn.close()
 
-    # Convert rows into a list of named tuples with formatted values
     return [
         Item(
             name=row[0],
@@ -58,8 +60,15 @@ def query_margin_recent(limit):
     ]
 
 
-def fuzzy_lookup_item_by_name(item_name):
-    # Connect to SQLite database (or create it if it doesn't exist)
+def fuzzy_lookup_item_by_name(item_name: str) -> list:
+    """_summary_
+
+    Args:
+        item_name: _description_
+
+    Returns:
+        _description_
+    """
     conn = sqlite3.connect("data_collection/osrs_prices.db")
     cursor = conn.cursor()
 
@@ -68,18 +77,22 @@ def fuzzy_lookup_item_by_name(item_name):
     return "WIP"
 
 
-def flip_search(max_price, min_volume, time_range_minutes):
+def flip_search(max_price: str, min_volume: int, time_range_minutes: int) -> list:
+    """Adds additional parameters on the query margin research to enable better filtered results
 
-    # Connect to SQLite database (or create it if it doesn't exist)
+    Args:
+        max_price: Max buy price of items shown
+        min_volume: Number of items traded in the last 24 hours
+        time_range_minutes: how recently the item must have been traded
+
+    Returns:
+        Returns of list of items matching parameters
+    """
     conn = sqlite3.connect("data_collection/osrs_prices.db")
     cursor = conn.cursor()
 
-    # Define a named tuple for the item structure
-
-    # Calculate time window
     calc_range = calc_time_range(time_range_minutes)
 
-    # Query to fetch items with the largest margins
     cursor.execute(
         """
         SELECT Item_name,
@@ -103,7 +116,6 @@ def flip_search(max_price, min_volume, time_range_minutes):
     rows = cursor.fetchall()
     conn.close()
 
-    # Convert rows into a list of named tuples with formatted values
     return [
         Item(
             name=row[0],

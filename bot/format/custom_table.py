@@ -8,5 +8,5 @@ thick_line = TableFormat(
     headerrow=DataRow("║", "│", "║"),
     datarow=DataRow("║", "│", "║"),
     padding=1,
-    with_header_hide=None
+    with_header_hide=None,
 )

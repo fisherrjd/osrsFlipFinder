@@ -3,8 +3,14 @@ from datetime import datetime
 
 
 def humanize_time(timestamp: int) -> str:
-    """Convert Unix timestamp to human-readable format with hours, minutes, and seconds."""
+    """_summary_
 
+    Args:
+        timestamp: defined in UNIX time
+
+    Returns:
+        Humanized Unix Time Stamp
+    """
     # Calculate the time difference
     time_diff = time.time() - timestamp
 

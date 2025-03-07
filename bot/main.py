@@ -10,7 +10,6 @@ from format.custom_table import thick_line
 from player.highscores import fetch_highscores
 from queries import query_margin_recent, fuzzy_lookup_item_by_name, flip_search
 from data_collection.utils.format import parse_shorthand
-import data_collection.player
 
 # Load environment variables
 load_dotenv()
@@ -93,11 +92,8 @@ async def top_error(ctx, error):
 # Command: !player
 @bot.command()
 async def player(ctx, username):
-    if username == "big16ind":
-        await ctx.send("fuckin NERD")
-    else:
-        temp = fetch_highscores(username)
-        await ctx.send(temp)
+    temp = fetch_highscores(username)
+    await ctx.send(temp)
 
 
 # Command: !flip
