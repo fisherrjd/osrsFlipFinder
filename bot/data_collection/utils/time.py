@@ -24,6 +24,6 @@ def humanize_time(timestamp: int) -> str:
 
 
 def calc_time_range(time_in_minutes):
-    current_time = int(datetime.datetime.now().timestamp())
+    current_time = int(datetime.now().timestamp())
     result = current_time - (time_in_minutes * 60)
     return result
