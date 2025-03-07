@@ -2,9 +2,13 @@ import requests
 
 
 def fetch_highscores(username: str) -> dict:
-    """
-    Fetch OSRS Highscores data for a given username.
-    Returns a dictionary with relevant stats or an error message.
+    """Fetch OSRS Highscores data for a given username.
+
+    Args:
+        username: osrs username value
+
+    Returns:
+        Returns a dictionary with relevant stats or an error message.
     """
     api_url = f"https://secure.runescape.com/m=hiscore_oldschool/index_lite.ws?player={username}"
 

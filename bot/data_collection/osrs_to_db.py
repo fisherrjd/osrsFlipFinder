@@ -19,7 +19,11 @@ DB_FILE = "osrs_prices.db"
 
 
 def initialize_database(conn):
-    """Initialize or update the database schema."""
+    """Initialize or update the database schema.
+
+    Args:
+        conn: connection to DB
+    """
     cursor = conn.cursor()
 
     # Check and add columns if they don't exist
@@ -53,7 +57,14 @@ def initialize_database(conn):
 
 
 def fetch_data(api_url):
-    """Fetch data from the given API."""
+    """Fetch data from the given API.
+
+    Raises:
+        Exception: Response for a failed api request
+
+    Returns:
+        returns json of item data
+    """
     response = requests.get(api_url, headers=HEADERS)
     if response.status_code == 200:
         return response.json()
@@ -61,8 +72,15 @@ def fetch_data(api_url):
         raise Exception(f"Failed to fetch data: {response.status_code}")
 
 
-def process_mapping_data(mapping_data):
-    """Process mapping data to create a dictionary of item_id -> name."""
+def process_mapping_data(mapping_data) -> dict:
+    """Process mapping data to create a dictionary of item_id -> name.
+
+    Args:
+        mapping_data: data to be processed
+
+    Returns:
+        returns mapped dictionary of item ID and item name
+    """
     name_mapping = {}
     for item in mapping_data:
         item_id = str(item.get("id", ""))
@@ -73,7 +91,14 @@ def process_mapping_data(mapping_data):
 
 
 def save_to_db(prices_data, volume_data, name_mapping, db_file):
-    """Save the fetched data into an SQLite database."""
+    """Save the fetched data into an SQLite database.
+
+    Args:
+        prices_data: Pricing data for items
+        volume_data: volume data for items
+        name_mapping: dictionary of item ID's mapped to item Names
+        db_file: output Db file where all this is stored
+    """
     conn = sqlite3.connect(db_file)
 
     # Initialize database schema
