@@ -128,3 +128,6 @@ def flip_search(max_price: str, min_volume: int, time_range_minutes: int) -> lis
         )
         for row in rows
     ]
+
+def query_best_default():
+    

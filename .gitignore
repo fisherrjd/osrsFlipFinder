@@ -271,7 +271,7 @@ dist
 ### nix ###
 .direnv
 result*
-
+.venv
 
 *osrs_prices.db*
 *players.db*
