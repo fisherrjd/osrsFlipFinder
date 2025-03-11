@@ -1,2 +1,0 @@
-curl -X GET "https://prices.runescape.wiki/api/v1/osrs/timeseries?timestep=24h&id=4151" \
-     -H "User-Agent: YourAppName/1.0 (your@email.com)"

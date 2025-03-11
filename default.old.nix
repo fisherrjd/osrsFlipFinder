@@ -1,29 +1,26 @@
 { pkgs ? import
     (fetchTarball {
-      name = "jpetrucciani-2025-03-08";
-      url = "https://github.com/jpetrucciani/nix/archive/3b64ee21efc92a849ebb0c74817d4701e9238a3e.tar.gz";
-      sha256 = "08j0w9r89dyxsjbr4nfb1j4kq5q79l11wk5x9lr0lil05mzd9fi0";
+      name = "jpetrucciani-2025-02-14";
+      url = "https://github.com/jpetrucciani/nix/archive/987b16e4a665dbb0a72b5223de725c2592c9e6ad.tar.gz";
+      sha256 = "1f0lsg0w6v4bln295mi9z11gg94rcsqkl7hgph6clg4vkjl0nw6x";
     })
     { }
 }:
 let
   name = "osrsFlipFinder";
 
-  uvEnv = pkgs.uv-nix.mkEnv {
-    inherit name; python = pkgs.python313;
-    workspaceRoot = ./.;
-    pyprojectOverrides = final: prev: { };
-  };
-
-  tools = with pkgs; {
-    cli = [
-      jfmt
-      nixup
-    ];
-    uv = [ uv uvEnv ];
-    scripts = pkgs.lib.attrsets.attrValues scripts;
-  };
-
+  tools = with pkgs;
+    {
+      cli = [
+        jfmt
+        nixup
+      ];
+      python = [
+        ruff
+        uv
+      ];
+      scripts = pkgs.lib.attrsets.attrValues scripts;
+    };
 
   scripts = with pkgs; {
     # Run the backend data collection
@@ -31,7 +28,7 @@ let
       name = "run-data";
       script = ''
         cd ./bot/data_collection || exit
-        ${uvEnv}/bin/python osrs_to_db.py
+        uv run python osrs_to_db.py
       '';
     };
     # Start the discord bot "frontend"
@@ -39,9 +36,10 @@ let
       name = "run-bot";
       script = ''
         cd ./bot || exit
-        ${uvEnv}/bin/python main.py
+        uv run python main.py
       '';
     };
+
     # Run the "frontend" and the data collection tool
     run = pkgs.pog {
       name = "run";
@@ -61,5 +59,5 @@ let
 in
 (env.overrideAttrs (_: {
   inherit name;
-  NIXUP = "0.0.9";
-} // uvEnv.uvEnvVars)) // { inherit scripts; }
+  NIXUP = "0.0.8";
+})) // { inherit scripts; }
