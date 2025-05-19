@@ -1,8 +1,8 @@
 { pkgs ? import
     (fetchTarball {
-      name = "jpetrucciani-2025-03-08";
-      url = "https://github.com/jpetrucciani/nix/archive/3b64ee21efc92a849ebb0c74817d4701e9238a3e.tar.gz";
-      sha256 = "08j0w9r89dyxsjbr4nfb1j4kq5q79l11wk5x9lr0lil05mzd9fi0";
+      name = "jpetrucciani-2025-05-19";
+      url = "https://github.com/jpetrucciani/nix/archive/8dedb8b3f777faba7eab070b443535f12f9a70f7.tar.gz";
+      sha256 = "17sn5cy76ix8zi8fni4lavb0ns2s69aqrsic5mq6qh8b56c04pn0";
     })
     { }
 }:
@@ -39,7 +39,7 @@ let
       name = "run-bot";
       script = ''
         cd ./bot || exit
-        ${uvEnv}/bin/python main.py
+        ${uvEnv}/bin/python bot.py
       '';
     };
     # Run the "frontend" and the data collection tool
