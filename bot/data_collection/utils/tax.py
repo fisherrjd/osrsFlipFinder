@@ -7,9 +7,17 @@ def calc_margin(high: int, low: int) -> int:
 
     Returns:
         returns the calculated margin for "flipping" an item at the listed price
+    Notes:
+        - GE tax rate is 2.0% as of the latest update.
+        - Items under 50 GP are not taxed.
+        - Tax is capped at 5,000,000 coins.
     """
 
-    if high > 500000000:
-        return int(high - low - (5000000))
+    if high < 50:
+        tax = 0
     else:
-        return int(high - low - (high * 0.01))
+        tax = int(high * 0.02)
+        if tax > 5000000:
+            tax = 5000000
+
+    return int(high - low - tax)
